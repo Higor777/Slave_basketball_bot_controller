@@ -1,0 +1,136 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1111 11, 1, LIC=8MZCX-HA92Z-23QM4-FI5RI-HXERZ-0ZUW7
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DCM.DLL V1.13.1.0
+Target DLL:      Segger\JL2CM3.dll V2.99.13.0
+Dialog DLL:      TCM.DLL V1.14.4.0
+ 
+<h2>Project:</h2>
+E:\Tech\Robots\basketballbot\Basketballbot_Slave_V2\Basketballbot_Slave_V2.1\Code\ÀºÇòµ×ÅÌF4\USER\CAN.uvprojx
+Project File Date:  04/22/2016
+
+<h2>Output:</h2>
+Build target 'CAN'
+compiling main.c...
+compiling stm32f4xx_it.c...
+compiling system_stm32f4xx.c...
+compiling can.c...
+compiling led.c...
+compiling queue.c...
+..\HARDWARE\BSP\queue.c(5): warning:  #167-D: argument of type "volatile Queue *" is incompatible with parameter of type "void *"
+      memset(pQueue, 0, sizeof(Queue));
+..\HARDWARE\BSP\queue.c: 1 warning, 0 errors
+compiling four_motor.c...
+..\HARDWARE\Chassis\four_motor.c(140): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        Len_M[0] = ( Ke.Total_angle.M1/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M1;
+..\HARDWARE\Chassis\four_motor.c(145): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        Len_M[2] = ( Ke.Total_angle.M3/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M3;
+..\HARDWARE\Chassis\four_motor.c(150): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        Len_M[1] = ( Ke.Total_angle.M2/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M2;
+..\HARDWARE\Chassis\four_motor.c(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[0]<0.000001&&Global_C[0]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c(162): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[1]<0.000001&&Global_C[1]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c(166): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[2]<0.000001&&Global_C[2]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c(178): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[0]<0.000001&&Global_C[0]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c(182): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[1]<0.000001&&Global_C[1]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c(186): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                        if(Global_C[2]<0.000001&&Global_C[2]>-0.000001)
+..\HARDWARE\Chassis\four_motor.c: 9 warnings, 0 errors
+compiling Tracks_GUI.c...
+..\HARDWARE\Chassis\Tracks_GUI.c(16): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(17): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(18): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );   
+..\HARDWARE\Chassis\Tracks_GUI.c(28): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(29): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(30): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );   
+..\HARDWARE\Chassis\Tracks_GUI.c(43): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(44): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
+..\HARDWARE\Chassis\Tracks_GUI.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );   
+..\HARDWARE\Chassis\Tracks_GUI.c(69): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                dy= (Amplitude * 2 * pi / T) * cos(2 * pi * Ke.Robot.x /T) ; 
+..\HARDWARE\Chassis\Tracks_GUI.c(82): warning:  #1-D: last line of file ends without a newline
+         
+..\HARDWARE\Chassis\Tracks_GUI.c: 11 warnings, 0 errors
+compiling TF.c...
+..\HARDWARE\Math\TF.c(15): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *Motor = 0 * Robot[0] + 1 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(16): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 1) =  -0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(16): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 1) =  -0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(17): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 2) =  0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(17): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 2) =  0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(17): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 2) =  0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+..\HARDWARE\Math\TF.c(29): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *Global = 0 * Motor[0] + -0.57735 * Motor[1] + 0.57735 * Motor[2] ;
+..\HARDWARE\Math\TF.c(30): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Global + 1) =  0.666667* Motor[0]  -0.333333 * Motor[1] + -0.333333 * Motor[2] ;
+..\HARDWARE\Math\TF.c(30): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Global + 1) =  0.666667* Motor[0]  -0.333333 * Motor[1] + -0.333333 * Motor[2] ;
+..\HARDWARE\Math\TF.c(31): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Global + 2) =  ( 0.333333/ (float)radius ) * ( Motor[0] + Motor[1] +  Motor[2] ) ;
+..\HARDWARE\Math\TF.c(76): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *Motor =  -sin(R_theta) * Global[0] + cos(R_theta) * Global[1] + radius * Global[2] ;
+..\HARDWARE\Math\TF.c(77): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 1) =  -sin(pi/3 - R_theta) * Global[0] - cos(pi/3 - R_theta) * Global[1] + radius * Global[2] ;
+..\HARDWARE\Math\TF.c(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        *(Motor + 2) =  sin(pi/3 + R_theta) * Global[0] - cos(pi/3 + R_theta) * Global[1] + radius * Global[2] ; 
+..\HARDWARE\Math\TF.c: 13 warnings, 0 errors
+compiling BSP.C...
+compiling usart3.c...
+compiling delay.c...
+compiling usart1_IMU.c...
+compiling sys.c...
+assembling startup_stm32f40_41xxx.s...
+compiling misc.c...
+compiling stm32f4xx_gpio.c...
+compiling stm32f4xx_fsmc.c...
+compiling stm32f4xx_rcc.c...
+compiling stm32f4xx_syscfg.c...
+compiling stm32f4xx_usart.c...
+compiling stm32f4xx_can.c...
+compiling stm32f4xx_tim.c...
+linking...
+Program Size: Code=32392 RO-data=856 RW-data=100 ZI-data=2756  
+FromELF: creating hex file...
+"..\OBJ\CAN.axf" - 0 Error(s), 34 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  E:\Tech\Robots\basketballbot\Basketballbot_Slave_V2\Basketballbot_Slave_V2.1\Code\ÀºÇòµ×ÅÌF4\USER\RTE
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+</pre>
+</body>
+</html>
