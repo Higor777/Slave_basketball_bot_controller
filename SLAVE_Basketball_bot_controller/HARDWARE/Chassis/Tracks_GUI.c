@@ -76,7 +76,5 @@ void Global_Speed_Set(float x ,float y ,float z)   //设置全局速度
  
  void PSin_Motion_Set(float Amplitude , float Int_Phase , float T , float Line_Speed , float z)    //sin运动曲线
  {
-
 	 
  }
- 	 

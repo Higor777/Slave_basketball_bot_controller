@@ -1,10 +1,10 @@
 ..\obj\tf.o: ..\HARDWARE\Math\TF.c
-..\obj\tf.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\tf.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\tf.o: ..\HARDWARE\Math\TF.h
 ..\obj\tf.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\tf.o: ..\USER\stm32f4xx.h
 ..\obj\tf.o: ..\CORE\core_cm4.h
-..\obj\tf.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\tf.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\tf.o: ..\CORE\core_cmInstr.h
 ..\obj\tf.o: ..\CORE\core_cmFunc.h
 ..\obj\tf.o: ..\CORE\core_cm4_simd.h
