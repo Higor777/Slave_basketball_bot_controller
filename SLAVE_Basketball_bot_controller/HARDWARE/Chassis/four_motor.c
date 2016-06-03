@@ -10,6 +10,7 @@ extern Robot_data  Ke ;
 extern System_flag System;   // 系统各标志
 extern struct SAngle 	stcAngle;
 extern float FITST_angle_erroer;
+extern float Yaw_Angle;
 //进制转换函数，将10进制转换为16进制，形参N为待转换值，转换完后的值放入指针h对应的数组中
 void itoh(int N, uint8_t *h)   
 {
@@ -150,7 +151,7 @@ void Encoder_analysis(void)
 			
 			Ke.Robot.x -= Global_C[0];
 			Ke.Robot.y -= Global_C[1];
-			Ke.Robot.z += Global_C[2];//stcAngle.Angle[2]-FITST_angle_erroer;//Global_C[2];
+		  Ke.Robot.z =Yaw_Angle/180.0f*pi;
 			
 			
 			//moto_to_robot
