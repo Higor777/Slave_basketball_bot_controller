@@ -8,7 +8,7 @@
 
 /*-----USART1_TX-----PA9-----*/
 /*-----USART1_RX-----PA10-----*/
-
+float Yaw_Angle=0;
 void USART1_IMU_Init(uint32_t baud)
 {
 		USART_InitTypeDef usart1;
@@ -113,8 +113,28 @@ void CopeSerialData(unsigned char ucData)
 		ucRxCnt=0;
 	}
 }
-
-
+void Dajiang_CopeSerialData(unsigned char ucData)
+{ 
+  static char first_angle=1;
+	static unsigned char ucRxCnt = 0;	
+	short temp;
+	ucRxBuffer[ucRxCnt++]=ucData;
+	if (ucRxBuffer[0]!=0xAA) //数据头不对，则重新开始寻找0x55数据头
+	{
+		ucRxCnt=0;
+		return;
+	}
+	if (ucRxCnt<6) {return;}//数据不满6个，则返回
+	else
+		{
+			if (ucRxBuffer[1]==0xAA)
+			{
+				memcpy(&Yaw_Angle,&ucRxBuffer[2],4);
+			}
+			
+			ucRxCnt=0;
+		}
+	}
 u8 TxBuffer[256];
 u8 TxCounter=0;
 u8 count=0; 
@@ -133,7 +153,7 @@ void USART1_IRQHandler(void)                	//UART1中断服务程序
 //					else
 					if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 					{
-						CopeSerialData((unsigned char)USART1->DR);//处理数据
+						Dajiang_CopeSerialData((unsigned char)USART1->DR);//处理数据
 						USART_ClearITPendingBit(USART1, USART_IT_RXNE);
 					}
 					USART_ClearITPendingBit(USART1,USART_IT_ORE);

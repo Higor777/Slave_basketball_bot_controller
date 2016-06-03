@@ -110,7 +110,11 @@ u8 CAN1_Send_Msg(u8* msg,u8 len)
   TxMessage.Data[i]=msg[i];				 // 第一帧信息          
   mbox= CAN_Transmit(CAN1, &TxMessage);   
   i=0;
-  while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))i++;	//等待发送结束
+  while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))
+	{
+		i++;
+		mbox= CAN_Transmit(CAN1, &TxMessage); 
+	}
   if(i>=0XFFF)return 1;
   return 0;		
 

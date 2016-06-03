@@ -13,8 +13,8 @@
 void Robot_To_Motor_tf(float Robot[3] , float *Motor )   
 {
 	*Motor = 0 * Robot[0] + 1 * Robot[1] + radius * Robot[2] ;
-	*(Motor + 1) =  -0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
-	*(Motor + 2) =  0.866025 * Robot[0] - 0.5 * Robot[1] + radius * Robot[2] ;
+	*(Motor + 1) =  -0.866025f* Robot[0] - 0.5f * Robot[1] + radius * Robot[2] ;
+	*(Motor + 2) =  0.866025f * Robot[0] - 0.5f * Robot[1] + radius * Robot[2] ;
 
 }
 
@@ -26,9 +26,9 @@ void Robot_To_Motor_tf(float Robot[3] , float *Motor )
 
 void Motor_To_Robot_tf(float Motor[3] , float *Global )   
 {
-	*Global = 0 * Motor[0] + -0.57735 * Motor[1] + 0.57735 * Motor[2] ;
-	*(Global + 1) =  0.666667* Motor[0]  -0.333333 * Motor[1] + -0.333333 * Motor[2] ;
-	*(Global + 2) =  ( 0.333333/ (float)radius ) * ( Motor[0] + Motor[1] +  Motor[2] ) ;
+	*Global = 0 * Motor[0] + -0.57735f * Motor[1] + 0.57735f * Motor[2] ;
+	*(Global + 1) =  0.666667f* Motor[0]  -0.333333f * Motor[1] + -0.333333f * Motor[2] ;
+	*(Global + 2) =  ( 0.333333f/ (float)radius ) * ( Motor[0] + Motor[1] +  Motor[2] ) ;
 
 }
 
@@ -96,8 +96,8 @@ Gvx Gvy Gvz  v1 v2 v3
 
 void Motor_To_Global_tf(float Motor[3] , float *Global ,float R_theta)   
 {
-	*Global = -0.666667 * sin(R_theta)*Motor[0] + (-0.577350*cos(R_theta) + 0.333333*sin(R_theta))*Motor[1] + (0.577350*cos(R_theta) + 0.333333*sin(R_theta))*Motor[2] ;
-	*(Global + 1) =  0.666667 * cos(R_theta)*Motor[0] + (-0.577350*sin(R_theta) - 0.333333*cos(R_theta))*Motor[1] + (0.577350*sin(R_theta) - 0.333333*cos(R_theta))*Motor[2] ;
+	*Global = -0.666667f * sin(R_theta)*Motor[0] + (-0.57735f*cos(R_theta) + 0.333333f*sin(R_theta))*Motor[1] + (0.577350f*cos(R_theta) + 0.333333*sin(R_theta))*Motor[2] ;
+	*(Global + 1) =  0.666667f * cos(R_theta)*Motor[0] + (-0.577350f*sin(R_theta) - 0.333333f*cos(R_theta))*Motor[1] + (0.57735f*sin(R_theta) - 0.333333f*cos(R_theta))*Motor[2] ;
 	*(Global + 2) =  ( 1 / (float)(3*radius) ) * ( Motor[0] + Motor[1] +Motor[2] ) ;
 
 }

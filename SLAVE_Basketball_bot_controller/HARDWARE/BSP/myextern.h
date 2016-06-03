@@ -5,9 +5,9 @@
 
 #define IMAX   400            //MA
 #define PID_hz 200            // 1圈编码器的脉冲数
-#define  wheel_R 0.051       //轮子半径
-#define  pi 3.1415
-#define  radius 0.255					//到中心的半径距离 	50/sqrt(3)	
+#define  wheel_R 0.051f       //轮子半径
+#define  pi 3.1415f
+#define  radius 0.255f					//到中心的半径距离 	50/sqrt(3)	
 
 
 typedef struct System{   // 系统各种标志

@@ -9,6 +9,8 @@
 extern Robot_data  Ke ;
 extern System_flag System;   // 系统各标志
 extern struct SAngle 	stcAngle;
+extern float FITST_angle_erroer;
+extern float Yaw_Angle;
 //进制转换函数，将10进制转换为16进制，形参N为待转换值，转换完后的值放入指针h对应的数组中
 void itoh(int N, uint8_t *h)   
 {
@@ -26,11 +28,12 @@ void itoh(int N, uint8_t *h)
     *(h+2)=(a[5]<<4)|a[4];
     *(h+3)=(a[7]<<4)|a[6];
 }
-
 /****************底盘控制函数****************/
 void Chassis_control(void)            
 { 	 
 	  static u8 Motor_cnt = 0;
+	  static char motor_cnt=1;
+	  motor_cnt=!motor_cnt;
 	  Motor_cnt++;
 		if(System.Control_Moder == 0)   //停止
 		{
@@ -56,39 +59,22 @@ void Chassis_control(void)
 			
 		else if(System.Control_Moder == 3)//机器人坐标系控制
 		{
-			Local_Speed_Set(Ke.Remote_Speed.x , Ke.Remote_Speed.y , Ke.Remote_Speed.z);
+			Robot_Speed_Set(Ke.Remote_Speed.x , Ke.Remote_Speed.y , Ke.Remote_Speed.z);
 		}
 	  if(System.Control_Moder ==1 || System.Control_Moder == 2 || System.Control_Moder ==3 )               //使能控制
 		{		
+			if(motor_cnt)
+				{
+					Can_send_motorx( Ke.E_Speed.M3 ,0x30);//驱动盒3的ID：0x30
+					delay_us(400);
+			    Can_send_motorx( Ke.E_Speed.M2 ,0x32);//驱动盒2的ID：0x32
+				}
+				else
+				{
+					Can_send_motorx( Ke.E_Speed.M1 ,0x36);//驱动盒1的ID：0x36
+				}
 	   
-      if(Motor_cnt%3 == 0)
-			{
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M3 ,0x30);//驱动盒3的ID：0x30
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M2 ,0x32);//驱动盒2的ID：0x32
-			}else if(Motor_cnt%3 == 1)
-			{
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M2 ,0x32);//驱动盒2的ID：0x32
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M1 ,0x36);//驱动盒1的ID：0x36
-			}else if(Motor_cnt%3 == 2)
-			{
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M3 ,0x30);//驱动盒3的ID：0x30
-			delay_us(200);
-			Can_send_motorx( Ke.E_Speed.M1 ,0x36);//驱动盒1的ID：0x36
-			}
-			
-			
-//			delay_us(200);
-//			Can_send_motorx( Ke.E_Speed.M3 ,0x30);//驱动盒3的ID：0x30
-//			delay_us(200);
-//			Can_send_motorx( Ke.E_Speed.M2 ,0x32);//驱动盒2的ID：0x32
-//			delay_us(200);
-//			Can_send_motorx( Ke.E_Speed.M1 ,0x36);//驱动盒1的ID：0x36
-//			delay_us(200);
+
     }
 	  else              //失能控制
 		{
@@ -107,8 +93,8 @@ void Chassis_control(void)
 编码器的数据分析
 解算出x，y，w,给上位机
 **************************************************/
-float Len_M[3]={0.0f,0.0f,0.0f};	   	           //每个万向轮走过里程差值
-float Global_C[3]={0.0f,0.0f,0.0f};	   	       //全局参数保存
+float Len_M[3]={0,0,0};	   	           //每个万向轮走过里程差值
+float Global_C[3]={0,0,0};	   	       //全局参数保存
 /**************机器人坐标系解算**************/
 void Encoder_analysis(void)
 {
@@ -118,11 +104,11 @@ void Encoder_analysis(void)
 	{
 		cnt=1;
 		Can_get_encoder(0x01,0x01);
-		delay_us(200);
+		delay_us(300);
 		Can_get_encoder(0x03,0x01);
-		delay_us(200);
+		delay_us(300);
 		Can_get_encoder(0x02,0x01);
-		delay_us(200);
+		delay_us(300);
   }
 	 else
 	 {
@@ -130,24 +116,19 @@ void Encoder_analysis(void)
 		  //由于三个请求一起发会出现丢帧现象，所以轮流每次发两个。
 	
 	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
-      delay_us(200) ;
+      delay_us(300) ;
 	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
-      delay_us(200) ;
+      delay_us(300) ;
 
-		 
-			//Can_get_encoder(0x01,0x00);
-		  //LED0=!LED0; 
-			Len_M[0] = ( Ke.Total_angle.M1/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M1;
+			Len_M[0] = ( Ke.Total_angle.M1/360.0f ) * 2.0f* pi * wheel_R - Ke.Total_distance .M1;
 			Ke.Total_distance .M1 += Len_M[0] ;
-			delay_us(200) ;
+	
 
-			//Can_get_encoder(0x02,0x00);
-			Len_M[2] = ( Ke.Total_angle.M3/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M3;
+		
+			Len_M[2] = ( Ke.Total_angle.M3/360.0f ) * 2.0f * pi * wheel_R - Ke.Total_distance .M3;
 			Ke.Total_distance .M3 += Len_M[2] ;
-			delay_us(200) ;
-
-			//Can_get_encoder(0x03,0x00);
-			Len_M[1] = ( Ke.Total_angle.M2/360.0 ) * 2.0 * pi * wheel_R - Ke.Total_distance .M2;
+			
+			Len_M[1] = ( Ke.Total_angle.M2/360.0f ) * 2.0f * pi * wheel_R - Ke.Total_distance .M2;
 			Ke.Total_distance .M2 += Len_M[1] ;	
 			delay_us(200) ;
 		 
@@ -155,35 +136,35 @@ void Encoder_analysis(void)
 			Motor_To_Global_tf( Len_M , Global_C , (float)Ke.Robot.z ) ; 
 			
 			
-			if(Global_C[0]<0.000001&&Global_C[0]>-0.000001)
+			if(Global_C[0]<0.000001f&&Global_C[0]>-0.000001f)
 			{
 				Global_C[0]=0;
 			}
-			if(Global_C[1]<0.000001&&Global_C[1]>-0.000001)
+			if(Global_C[1]<0.000001f&&Global_C[1]>-0.000001f)
 			{
 				Global_C[1]=0;
 			}		
-			if(Global_C[2]<0.000001&&Global_C[2]>-0.000001)
+			if(Global_C[2]<0.000001f&&Global_C[2]>-0.000001f)
 			{
 				Global_C[2]=0;
 			}	
 			
 			Ke.Robot.x -= Global_C[0];
 			Ke.Robot.y -= Global_C[1];
-			Ke.Robot.z  = (float)stcAngle.Angle[2]  ; //+= Global_C[2];
+		  Ke.Robot.z =Yaw_Angle/180.0f*pi;
 			
 			
 			//moto_to_robot
 			Motor_To_Robot_tf(Len_M , Global_C);
-			if(Global_C[0]<0.000001&&Global_C[0]>-0.000001)
+			if(Global_C[0]<0.000001f&&Global_C[0]>-0.000001f)
 			{
 				Global_C[0]=0;
 			}
-			if(Global_C[1]<0.000001&&Global_C[1]>-0.000001)
+			if(Global_C[1]<0.000001f&&Global_C[1]>-0.000001f)
 			{
 				Global_C[1]=0;
 			}		
-			if(Global_C[2]<0.000001&&Global_C[2]>-0.000001)
+			if(Global_C[2]<0.000001f&&Global_C[2]>-0.000001f)
 			{
 				Global_C[2]=0;
 			}	
@@ -223,7 +204,6 @@ u8 Can_send_motorx(float v,u8 UID)   //  发送角速度到驱动核
   do{	
 	mbox = CAN_Transmit(CAN1, &TxMessageBuffer);   //把期望角速度发给驱动板
 	i++;
-	delay_us(200);
   }while((mbox==CAN_TxStatus_NoMailBox)&&i<0xfff);	//邮箱满重发
 	i=0;	
   while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))i++;	//等待发送结束	
@@ -252,7 +232,6 @@ void Can_get_encoder(u8 UID , u8 noselect)          //  发送请求指令
   do{	
 	mbox = CAN_Transmit(CAN1, &TxMessageBuffe);   //把请求发给F1
 	i++;
-	delay_us(200);
   }while((mbox==CAN_TxStatus_NoMailBox)&&i<0xfff);	//邮箱满重发
 	
   while((CAN_TransmitStatus(CAN1, mbox)==CAN_TxStatus_Failed)&&(i<0XFFF))i++;	//等待发送结束	
