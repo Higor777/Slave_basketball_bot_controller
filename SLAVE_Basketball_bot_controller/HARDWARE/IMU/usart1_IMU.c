@@ -127,7 +127,7 @@ void Dajiang_CopeSerialData(unsigned char ucData)
 	if (ucRxCnt<6) {return;}//数据不满6个，则返回
 	else
 		{
-			if (ucRxBuffer[1]==0xAA)
+			if (ucRxBuffer[1]==0xAB)
 			{
 				memcpy(&Yaw_Angle,&ucRxBuffer[2],4);
 			}
