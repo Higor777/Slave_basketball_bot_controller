@@ -114,12 +114,15 @@ void Encoder_analysis(void)
 	 {
 		 
 		  //由于三个请求一起发会出现丢帧现象，所以轮流每次发两个。
-	
-	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
-      delay_us(300) ;
-	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
-      delay_us(300) ;
+//	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
+//      delay_us(300) ;
+//	  	Can_get_encoder(++Encoder_cnt%3+1,0x00);
+//      delay_us(300) ;
 
+		  //发送一个请求，返回三个轮子数据
+			Can_get_encoder(0x01,0x00);
+      delay_us(300) ;
+		 
 			Len_M[0] = ( Ke.Total_angle.M1/360.0f ) * 2.0f* pi * wheel_R - Ke.Total_distance .M1;
 			Ke.Total_distance .M1 += Len_M[0] ;
 	
@@ -151,7 +154,7 @@ void Encoder_analysis(void)
 			
 			Ke.Robot.x -= Global_C[0];
 			Ke.Robot.y -= Global_C[1];
-		  Ke.Robot.z =Yaw_Angle/180.0f*pi;
+		  Ke.Robot.z  = Yaw_Angle/180.0f*pi;
 			
 			
 			//moto_to_robot
@@ -259,45 +262,38 @@ void CAN1_RX0_IRQHandler(void)
 {	
 	
 	CanRxMsg RxMessage;	
-	
+	static unsigned char byte[12];
+	static char buff_finish_flag[2]={0,0};
 	if (CAN_GetITStatus(CAN1,CAN_IT_FMP0)!= RESET)
 	{
 		
 		
-			u8 byte[4],i;
-	    //LED1=!LED1;
-			RxMessage.StdId=0x0000;   //发送者ID
-			RxMessage.ExtId=0x0032;   //接受者ID 
-			RxMessage.IDE=0;
-			RxMessage.DLC=0;
-			RxMessage.FMI=0;	
+			u8 i;
 				
 		  CAN_Receive(CAN1, CAN_FIFO0, &RxMessage); 		
 			
-			if((RxMessage.ExtId==((0x01<<8)|MYID)) && (RxMessage.DLC==0x06) && (RxMessage.Data[0]==0x02))	//请求里程
+			if((RxMessage.ExtId==((0x01<<8)|MYID)) && (RxMessage.DLC==0x08) && (RxMessage.Data[0]==0x02))	//请求里程
 			{
 				 
-				 for(i=0;i<4;i++)
+				 for(i=0;i<6;i++)
 				 {
 					 
 						byte[i]=RxMessage.Data[i+2];	
 					 
-				 }
-		     memcpy( &Ke.Total_angle.M1 , byte ,sizeof(int) );	  //电机1			 
-	 
+				 }		 
+					buff_finish_flag[0]=1;
 	    }
 		 
-		 	if((RxMessage.ExtId==((0x02<<8)|MYID)) && (RxMessage.DLC==0x06) && (RxMessage.Data[0]==0x02))	//请求里程
+		 	if((RxMessage.ExtId==((0x02<<8)|MYID)) && (RxMessage.DLC==0x08) && (RxMessage.Data[0]==0x02))	//请求里程
 			{
 
-				 for(i=0;i<4;i++)
+				 for(i=0;i<6;i++)
 				 {
 					 
-						byte[i]=RxMessage.Data[i+2];	
+						byte[i+6]=RxMessage.Data[i+2];	
 					 
-				 }
-		      memcpy( &Ke.Total_angle.M2 , byte ,sizeof(int) );	  //电机2			 
-	 
+				 }	 
+				buff_finish_flag[1]=1;
 	   }
 		 
 		 	if((RxMessage.ExtId==((0x03<<8)|MYID)) && (RxMessage.DLC==0x06) && (RxMessage.Data[0]==0x02))	//请求里程
@@ -313,6 +309,15 @@ void CAN1_RX0_IRQHandler(void)
 	 
 	   }
 		 
+		 
+		 if(buff_finish_flag[0]==1&&buff_finish_flag[1]==1)
+		 {
+			 buff_finish_flag[0]=0;
+			 buff_finish_flag[1]=0;
+			 memcpy( &Ke.Total_angle.M1 , byte ,4);	
+			 memcpy( &Ke.Total_angle.M2 , byte+4 ,4 );	
+			 memcpy( &Ke.Total_angle.M3 , byte+8 ,4);	
+		 }
 						 
 		 CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
 		 CAN_FIFORelease(CAN1,CAN_FIFO0); //清中断标志
