@@ -2,7 +2,7 @@
 ..\obj\four_motor.o: ..\HARDWARE\BSP\bsp.h
 ..\obj\four_motor.o: ..\USER\stm32f4xx.h
 ..\obj\four_motor.o: ..\CORE\core_cm4.h
-..\obj\four_motor.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\four_motor.o: ..\CORE\core_cmInstr.h
 ..\obj\four_motor.o: ..\CORE\core_cmFunc.h
 ..\obj\four_motor.o: ..\CORE\core_cm4_simd.h
@@ -35,10 +35,10 @@
 ..\obj\four_motor.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\four_motor.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\four_motor.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\four_motor.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\four_motor.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\four_motor.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h
-..\obj\four_motor.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
+..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\four_motor.o: ..\SYSTEM\sys\sys.h
 ..\obj\four_motor.o: ..\HARDWARE\LED\led.h
 ..\obj\four_motor.o: ..\HARDWARE\Chassis\four_motor.h

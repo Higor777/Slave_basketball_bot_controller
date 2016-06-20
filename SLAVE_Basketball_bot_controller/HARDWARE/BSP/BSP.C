@@ -46,12 +46,13 @@ void TIM6_DAC_IRQHandler(void)   //10ms
 	static u8 cnt=0;
   if (TIM_GetITStatus(TIM6,TIM_IT_Update)!= RESET) 
 	{    
-			static int16_t led_hz = 20;
+			static int16_t led_hz = 1;
       
 			System.S_cnt1++;		
 			if(	System.S_cnt1 >= (int16_t)(1000/(led_hz*10)))
 			{
 				System.S_cnt1=0;
+				LED=!LED;
 			}
 	    
 			IMU_CYCTIME1 = GET_microstime(&While1_Lasttime);		//¸üÐÂÁ½´Î¶ÁÈ¡Ê±¼ä¼ä¸ô ´ó¸Å20ms  2¸öÖÐ¶ÏÊ±¼ä

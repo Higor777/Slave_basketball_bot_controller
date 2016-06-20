@@ -59,7 +59,7 @@ void USART3_IRQHandler(void)
 		
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
-			LED0=!LED0;
+			LED=!LED;
 			if(queue_full(rx_queue))
 			{		   		   
 				//USART3_SendChar(0xff);

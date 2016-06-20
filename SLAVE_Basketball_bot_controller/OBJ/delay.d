@@ -2,7 +2,7 @@
 ..\obj\delay.o: ..\HARDWARE\BSP\BSP.h
 ..\obj\delay.o: ..\USER\stm32f4xx.h
 ..\obj\delay.o: ..\CORE\core_cm4.h
-..\obj\delay.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\delay.o: ..\CORE\core_cmInstr.h
 ..\obj\delay.o: ..\CORE\core_cmFunc.h
 ..\obj\delay.o: ..\CORE\core_cm4_simd.h
@@ -35,9 +35,9 @@
 ..\obj\delay.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\delay.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\delay.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\delay.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\delay.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\delay.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h
-..\obj\delay.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
+..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\delay.o: ..\SYSTEM\sys\sys.h
 ..\obj\delay.o: ..\HARDWARE\LED\led.h
