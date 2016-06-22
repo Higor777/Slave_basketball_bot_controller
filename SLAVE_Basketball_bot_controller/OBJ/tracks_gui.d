@@ -41,6 +41,7 @@
 ..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\tracks_gui.o: ..\SYSTEM\sys\sys.h
 ..\obj\tracks_gui.o: ..\HARDWARE\LED\led.h
+..\obj\tracks_gui.o: ..\HARDWARE\CAN\can.h
 ..\obj\tracks_gui.o: ..\HARDWARE\Math\TF.h
 ..\obj\tracks_gui.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\tracks_gui.o: ..\HARDWARE\Chassis\Tracks_GUI.h

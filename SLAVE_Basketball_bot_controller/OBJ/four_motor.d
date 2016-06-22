@@ -41,9 +41,9 @@
 ..\obj\four_motor.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\four_motor.o: ..\SYSTEM\sys\sys.h
 ..\obj\four_motor.o: ..\HARDWARE\LED\led.h
+..\obj\four_motor.o: ..\HARDWARE\CAN\can.h
 ..\obj\four_motor.o: ..\HARDWARE\Chassis\four_motor.h
 ..\obj\four_motor.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\four_motor.o: ..\HARDWARE\Math\TF.h
 ..\obj\four_motor.o: ..\HARDWARE\Chassis\Tracks_GUI.h
-..\obj\four_motor.o: ..\HARDWARE\CAN\can.h
 ..\obj\four_motor.o: ..\HARDWARE\IMU\usart1_IMU.h

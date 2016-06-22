@@ -3,7 +3,7 @@
 #include "queue.h"
 #include "myextern.h"
 #include "usart3.h"
-
+#include "four_motor.h"
 /********************************************************************
 篮球底盘万向轮以顺时针旋转为正方向
 轮子序号为逆时针
@@ -136,6 +136,8 @@ float xianfu(float v, float x)
 
 }
 
+extern float Gypo_Offset;
+extern float Yaw_Angle;
 void clear(void)			  				
 {
 	
@@ -148,6 +150,14 @@ void clear(void)
 	Ke.Total_distance.M1 =0 ; 	
 	Ke.Total_distance.M2 =0 ;
 	Ke.Total_distance.M3 =0 ;
+	Can_get_encoder(0x01,0x01);
+	delay_us(300);
+	Can_get_encoder(0x03,0x01);
+	delay_us(300);
+	Can_get_encoder(0x02,0x01);
+	delay_us(300);
+	Gypo_Offset+=Yaw_Angle;//陀螺仪调整零偏
+	
 
 } 
 void start_dc(void)	
@@ -252,7 +262,7 @@ void send(void)
 	   if(noselect==0x03)			   //重置编码器的数据
 		{	
 		 
-			clear();				
+			clear();		
 			USART3_SendChar(0xff);		
 			USART3_SendChar(0xff);			
 			USART3_SendChar(0x01);     //底盘控制

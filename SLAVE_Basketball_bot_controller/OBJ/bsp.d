@@ -41,7 +41,8 @@
 ..\obj\bsp.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\bsp.o: ..\SYSTEM\sys\sys.h
 ..\obj\bsp.o: ..\HARDWARE\LED\led.h
-..\obj\bsp.o: ..\HARDWARE\BSP\can.h
+..\obj\bsp.o: ..\HARDWARE\CAN\can.h
 ..\obj\bsp.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\bsp.o: ..\HARDWARE\Chassis\four_motor.h
 ..\obj\bsp.o: ..\HARDWARE\IMU\usart1_IMU.h
+..\obj\bsp.o: ..\HARDWARE\IMU\can2_IMU.h

@@ -53,7 +53,9 @@ void Chassis_control(void)
 		else if(System.Control_Moder == 2)  //上位机控制，一般来说都是进的这个控制模式
 		{
 			
-      Global_Speed_Set(Ke.E_Global_Speed.x ,Ke.E_Global_Speed.y ,Ke.E_Global_Speed.z);  //设置全局速度
+     
+
+			Global_Speed_Set(Ke.E_Global_Speed.x ,Ke.E_Global_Speed.y ,Ke.E_Global_Speed.z);  //设置全局速度
 
     }
 			
@@ -95,6 +97,11 @@ void Chassis_control(void)
 **************************************************/
 float Len_M[3]={0,0,0};	   	           //每个万向轮走过里程差值
 float Global_C[3]={0,0,0};	   	       //全局参数保存
+
+		
+		
+	extern float Gypo_Offset;
+	extern float Yaw_Angle;
 /**************机器人坐标系解算**************/
 void Encoder_analysis(void)
 {
@@ -109,6 +116,9 @@ void Encoder_analysis(void)
 		delay_us(300);
 		Can_get_encoder(0x02,0x01);
 		delay_us(300);
+  	Gypo_Offset+=Yaw_Angle;//陀螺仪调整零偏
+		
+		
   }
 	 else
 	 {

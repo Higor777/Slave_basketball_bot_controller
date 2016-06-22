@@ -3,6 +3,7 @@
 #include "myextern.h"
 #include "four_motor.h"
 #include "usart1_IMU.h"
+#include "can2_IMU.h"
 uint32_t    While1_Lasttime=0;    //´æ´¢ÉÏÒ»´Îtim5µÄ¼ÆÊý
 float	NOW_TIME ,IMU_CYCTIME1,IMU_CYCTIME2;	
 extern System_flag System;   // ÏµÍ³¸÷±êÖ¾
@@ -22,6 +23,8 @@ void RCC_Init(void)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6,ENABLE);
 	
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN2, ENABLE);
+	
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3,ENABLE);
 
 }
@@ -116,8 +119,9 @@ void BSP_Init(void)
 	  LED_Init();					//³õÊ¼»¯LED 
 /*************Í¨ÐÅ³õÊ¼»¯*******************/
 		USART3_Configuration();   //ÉÏÎ»»úÍ¨ÐÅ
-    CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_7tq,6,CAN_Mode_Normal);
-  	USART1_IMU_Init(115200);
+    CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_7tq,6,CAN_Mode_Normal);//can1初始化500k波特率
+		CAN2_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,3,CAN_Mode_Normal);//can2初始化500k波特率
+  	//USART1_IMU_Init(115200);
 }
 
 

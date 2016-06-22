@@ -41,4 +41,5 @@
 ..\obj\usart3.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\usart3.o: ..\SYSTEM\sys\sys.h
 ..\obj\usart3.o: ..\HARDWARE\LED\led.h
+..\obj\usart3.o: ..\HARDWARE\CAN\can.h
 ..\obj\usart3.o: ..\HARDWARE\BSP\queue.h

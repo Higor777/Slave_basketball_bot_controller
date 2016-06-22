@@ -41,6 +41,8 @@
 ..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
 ..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
+..\obj\main.o: ..\HARDWARE\CAN\can.h
 ..\obj\main.o: ..\HARDWARE\BSP\queue.h
 ..\obj\main.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\main.o: ..\HARDWARE\BSP\usart3.h
+..\obj\main.o: ..\HARDWARE\Chassis\four_motor.h

@@ -8,7 +8,7 @@
 
 /*-----USART1_TX-----PA9-----*/
 /*-----USART1_RX-----PA10-----*/
-float Yaw_Angle=0;
+extern float Yaw_Angle;
 void USART1_IMU_Init(uint32_t baud)
 {
 		USART_InitTypeDef usart1;
@@ -115,9 +115,7 @@ void CopeSerialData(unsigned char ucData)
 }
 void Dajiang_CopeSerialData(unsigned char ucData)
 { 
-  static char first_angle=1;
 	static unsigned char ucRxCnt = 0;	
-	short temp;
 	ucRxBuffer[ucRxCnt++]=ucData;
 	if (ucRxBuffer[0]!=0xAA) //数据头不对，则重新开始寻找0x55数据头
 	{

@@ -7,6 +7,25 @@ F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave
 Project File Date:  06/08/2016
 
 <h2>Output:</h2>
+Build target 'CAN'
+linking...
+Program Size: Code=31824 RO-data=856 RW-data=156 ZI-data=2796  
+FromELF: creating hex file...
+"..\OBJ\CAN.axf" - 0 Error(s), 0 Warning(s).
+Load "..\\OBJ\\CAN.axf" 
+Set JLink Project File to "F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave_basketball_bot_controller\SLAVE_Basketball_bot_controller\USER\JLinkSettings.ini"
+* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.80g, compiled Feb 13 2014 20:50:02
+Firmware: J-Link ARM V8 compiled Nov 28 2014 13:44:46
+Hardware: V8.00
+S/N : 286370559 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash 
+ 
+* JLink Info: STM32F2xxx/STM32F4xxx: Can not attach to CPU. Trying connect under reset.
+Error: Flash Download failed  -  Target DLL has been cancelled
 Load "..\\OBJ\\CAN.axf" 
 Set JLink Project File to "F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave_basketball_bot_controller\SLAVE_Basketball_bot_controller\USER\JLinkSettings.ini"
 * JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
@@ -42,7 +61,50 @@ Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-Error: Target DLL has been cancelled. Debugger aborted !
 </pre>
 </body>
 </html>
+ead register 8 (R8) while CPU is running
+***JLink Error: Can not read register 9 (R9) while CPU is running
+***JLink Error: Can not read register 10 (R10) while CPU is running
+***JLink Error: Can not read register 11 (R11) while CPU is running
+***JLink Error: Can not read register 12 (R12) while CPU is running
+***JLink Error: Can not read register 13 (R13) while CPU is running
+***JLink Error: Can not read register 14 (R14) while CPU is running
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+------
+Device: STM32F407ZG
+VTarget = 3.274V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 1, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 500 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_usart.c: 1 warning, 0 errors
+compiling stm32f4xx_can.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_can.c: 1 warning, 0 errors
+compiling stm32f4xx_tim.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_tim.c: 1 warning, 0 errors
+linking...
+..\OBJ\CAN.axf: Error: L6200E: Symbol CAN1_Send_Msg multiply defined (by can2_imu.o and can.o).
+..\OBJ\CAN.axf: Error: L6200E: Symbol Yaw_Angle multiply defined (by can2_imu.o and usart1_imu.o).
+Not enough information to list image symbols.
+Not enough information to list the image map.
+Finished: 2 information, 0 warning and 2 error messages.
+"..\OBJ\CAN.axf" - 2 Error(s), 17 Warning(s).
+Target not created

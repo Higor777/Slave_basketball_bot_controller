@@ -12,6 +12,7 @@
 "..\obj\usart3.o"
 "..\obj\delay.o"
 "..\obj\usart1_imu.o"
+"..\obj\can2_imu.o"
 "..\obj\sys.o"
 "..\obj\startup_stm32f40_41xxx.o"
 "..\obj\misc.o"

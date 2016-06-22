@@ -41,3 +41,4 @@
 ..\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\delay.o: ..\SYSTEM\sys\sys.h
 ..\obj\delay.o: ..\HARDWARE\LED\led.h
+..\obj\delay.o: ..\HARDWARE\CAN\can.h

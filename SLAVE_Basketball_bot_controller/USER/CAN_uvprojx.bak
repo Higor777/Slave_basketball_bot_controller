@@ -474,11 +474,6 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\IMU\usart1_IMU.c</FilePath>
             </File>
-            <File>
-              <FileName>can2_IMU.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\IMU\can2_IMU.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

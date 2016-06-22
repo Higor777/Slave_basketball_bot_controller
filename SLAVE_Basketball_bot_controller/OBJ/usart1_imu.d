@@ -41,5 +41,6 @@
 ..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
 ..\obj\usart1_imu.o: ..\SYSTEM\sys\sys.h
 ..\obj\usart1_imu.o: ..\HARDWARE\LED\led.h
+..\obj\usart1_imu.o: ..\HARDWARE\CAN\can.h
 ..\obj\usart1_imu.o: ..\HARDWARE\IMU\usart1_IMU.h
 ..\obj\usart1_imu.o: ..\HARDWARE\BSP\myextern.h

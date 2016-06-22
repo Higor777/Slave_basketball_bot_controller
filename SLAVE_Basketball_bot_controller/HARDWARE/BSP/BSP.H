@@ -8,6 +8,7 @@
 #include "math.h"
 #include "sys.h"
 #include "led.h"
+#include "can.h"
 #define LED0 PFout(9)
 #define LED1 PFout(10)
 
@@ -29,8 +30,6 @@ void LED_KEY_GPIO_Init(void);
 
 void CAN1_Configuration(void);
 
-//can2.c
-void CAN2_Configuration(void);
 
 
 //usart2.c
