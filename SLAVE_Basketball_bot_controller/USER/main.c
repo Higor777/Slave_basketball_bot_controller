@@ -171,9 +171,9 @@ void start_dc(void)
 
     memcpy(&Ke.E_Global_Speed  , radBufferRS485 , 12);	  //
 
-	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 10);  //防止速度过大，通信很难说的。
-	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 10);
-		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 10);
+	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 0.2);  //防止速度过大，通信很难说的。
+	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 0.2);
+		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 0.2);
 		}
 }
 void start_dc_local(void)
@@ -184,9 +184,9 @@ void start_dc_local(void)
 			System.Control_Moder = 3;    //添加contro_mode,避免和local控制干扰
     memcpy(&Ke.Remote_Speed  , radBufferRS485 , 12);	  //将三个电机速度存储到radBufferRS485
 
-	  Ke.Remote_Speed.x=xianfu(Ke.E_Speed .M1, 10);  //防止速度过大，通信很难说的。
-	  Ke.Remote_Speed.y=xianfu(Ke.E_Speed .M2, 10);
-		Ke.Remote_Speed.z=xianfu(Ke.E_Speed .M3, 10);
+	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 0.2);  //防止速度过大，通信很难说的。
+	  Ke.Remote_Speed.y=xianfu(Ke.Remote_Speed.y, 0.2);
+		Ke.Remote_Speed.z=xianfu(Ke.Remote_Speed.z, 0.2);
 		}
 }
 void handle_data(uint8_t buf[], int len)

@@ -4,92 +4,102 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave_basketball_bot_controller\SLAVE_Basketball_bot_controller\USER\CAN.uvprojx
-Project File Date:  06/08/2016
+Project File Date:  06/22/2016
 
 <h2>Output:</h2>
 Build target 'CAN'
 linking...
-Program Size: Code=31824 RO-data=856 RW-data=156 ZI-data=2796  
+Program Size: Code=31832 RO-data=856 RW-data=156 ZI-data=2796  
 FromELF: creating hex file...
 "..\OBJ\CAN.axf" - 0 Error(s), 0 Warning(s).
-Load "..\\OBJ\\CAN.axf" 
-Set JLink Project File to "F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave_basketball_bot_controller\SLAVE_Basketball_bot_controller\USER\JLinkSettings.ini"
-* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
- 
-JLink info:
-------------
-DLL: V4.80g, compiled Feb 13 2014 20:50:02
-Firmware: J-Link ARM V8 compiled Nov 28 2014 13:44:46
-Hardware: V8.00
-S/N : 286370559 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash 
- 
-* JLink Info: STM32F2xxx/STM32F4xxx: Can not attach to CPU. Trying connect under reset.
-Error: Flash Download failed  -  Target DLL has been cancelled
-Load "..\\OBJ\\CAN.axf" 
-Set JLink Project File to "F:\Basketball_Robot\Basketball_Robot_Slave\Slave_basketball_bot_controller\Slave_basketball_bot_controller\SLAVE_Basketball_bot_controller\USER\JLinkSettings.ini"
-* JLink Info: Device "STM32F407ZG" selected (1024 KB flash, 128 KB RAM).
- 
-JLink info:
-------------
-DLL: V4.80g, compiled Feb 13 2014 20:50:02
-Firmware: J-Link ARM V8 compiled Nov 28 2014 13:44:46
-Hardware: V8.00
-S/N : 286370559 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: STM32F407ZG
-VTarget = 3.274V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 0, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 500 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
 </pre>
 </body>
 </html>
-ead register 8 (R8) while CPU is running
-***JLink Error: Can not read register 9 (R9) while CPU is running
-***JLink Error: Can not read register 10 (R10) while CPU is running
-***JLink Error: Can not read register 11 (R11) while CPU is running
-***JLink Error: Can not read register 12 (R12) while CPU is running
-***JLink Error: Can not read register 13 (R13) while CPU is running
-***JLink Error: Can not read register 14 (R14) while CPU is running
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
-------
-Device: STM32F407ZG
-VTarget = 3.274V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 0, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 500 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
--D: incompatible redefinition of macro "STM32F40_41xxx"
+ling stm32f4xx_it.c...
+stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+stm32f4xx_it.c: 1 warning, 0 errors
+compiling system_stm32f4xx.c...
+stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+system_stm32f4xx.c: 1 warning, 0 errors
+compiling can.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\CAN\can.c: 1 warning, 0 errors
+compiling led.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\LED\led.c: 1 warning, 0 errors
+compiling queue.c...
+..\HARDWARE\BSP\queue.c(5): warning:  #167-D: argument of type "volatile Queue *" is incompatible with parameter of type "void *"
+      memset(pQueue, 0, sizeof(Queue));
+..\HARDWARE\BSP\queue.c: 1 warning, 0 errors
+compiling four_motor.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\Chassis\four_motor.c(108): warning:  #177-D: variable "Encoder_cnt" was declared but never referenced
+        static u8 Encoder_cnt = 0;
+..\HARDWARE\Chassis\four_motor.c: 2 warnings, 0 errors
+compiling Tracks_GUI.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\Chassis\Tracks_GUI.c(80): warning:  #1-D: last line of file ends without a newline
+   }
+..\HARDWARE\Chassis\Tracks_GUI.c: 2 warnings, 0 errors
+compiling TF.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\Math\TF.c: 1 warning, 0 errors
+compiling BSP.C...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\BSP\BSP.C: 1 warning, 0 errors
+compiling usart3.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\BSP\usart3.c: 1 warning, 0 errors
+compiling delay.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\BSP\delay.c: 1 warning, 0 errors
+compiling usart1_IMU.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\IMU\usart1_IMU.c: 1 warning, 0 errors
+compiling can2_IMU.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\HARDWARE\IMU\can2_IMU.c(147): warning:  #167-D: argument of type "volatile u8 *" is incompatible with parameter of type "void *restrict"
+                 memcpy(GYPOS_DATA,&Yaw_Angle_temp,4);
+..\HARDWARE\IMU\can2_IMU.c: 2 warnings, 0 errors
+compiling sys.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\SYSTEM\sys\sys.c: 1 warning, 0 errors
+assembling startup_stm32f40_41xxx.s...
+compiling misc.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\misc.c: 1 warning, 0 errors
+compiling stm32f4xx_gpio.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_gpio.c: 1 warning, 0 errors
+compiling stm32f4xx_fsmc.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_fsmc.c: 1 warning, 0 errors
+compiling stm32f4xx_rcc.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_rcc.c: 1 warning, 0 errors
+compiling stm32f4xx_syscfg.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+..\FWLIB\src\stm32f4xx_syscfg.c: 1 warning, 0 errors
+compiling stm32f4xx_usart.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
     #define STM32F40_41xxx
 ..\FWLIB\src\stm32f4xx_usart.c: 1 warning, 0 errors
 compiling stm32f4xx_can.c...
@@ -101,10 +111,11 @@ compiling stm32f4xx_tim.c...
     #define STM32F40_41xxx
 ..\FWLIB\src\stm32f4xx_tim.c: 1 warning, 0 errors
 linking...
-..\OBJ\CAN.axf: Error: L6200E: Symbol CAN1_Send_Msg multiply defined (by can2_imu.o and can.o).
-..\OBJ\CAN.axf: Error: L6200E: Symbol Yaw_Angle multiply defined (by can2_imu.o and usart1_imu.o).
-Not enough information to list image symbols.
-Not enough information to list the image map.
-Finished: 2 information, 0 warning and 2 error messages.
-"..\OBJ\CAN.axf" - 2 Error(s), 17 Warning(s).
-Target not created
+Program Size: Code=31832 RO-data=856 RW-data=156 ZI-data=2796  
+FromELF: creating hex file...
+"..\OBJ\CAN.axf" - 0 Error(s), 26 Warning(s).
+compiling main.c...
+..\USER\stm32f4xx.h(89): warning:  #47-D: incompatible redefinition of macro "STM32F40_41xxx"
+    #define STM32F40_41xxx
+main.c: 1 warning, 0 errors
+"main.c" - 0 Error(s), 1 Warning(s).
