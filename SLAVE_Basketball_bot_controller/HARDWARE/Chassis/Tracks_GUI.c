@@ -13,9 +13,9 @@ void Local_Speed_Set(float x , float y , float z)
 	  Local[1] = -y ;
 	  Local[2] = z;
 	  Robot_To_Motor_tf(Local , Speed);
-		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );	
+		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi )/6.0f;	
 }
 
 void Global_Speed_Set(float x ,float y ,float z)   //设置全局速度
@@ -25,24 +25,24 @@ void Global_Speed_Set(float x ,float y ,float z)   //设置全局速度
 	  Global[1] = -y ;
 	  Global[2] = z;
 		Global_To_Motor_tf( Global , Speed , Ke.Robot.z) ;
-		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );	
+		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi )/6.0f;	
 	 
  }
  
  void Robot_Speed_Set(float x ,float y ,float z)   //设置机器人坐标速度
  {
 	  static float Robot[3],Speed[3] ;	
-	  Robot[0] = x ;
-	  Robot[1] = y ;
+	  Robot[0] = -x ;
+	  Robot[1] = -y ;
 	  Robot[2] = z ;
 	 
 		Robot_To_Motor_tf( Robot , Speed ) ;
 	 
-		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi );
-		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi );	
+		Ke.E_Speed.M1  = ( Speed[0] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M2  = ( Speed[1] / wheel_R ) * ( 180/pi )/6.0f;
+		Ke.E_Speed.M3  = ( Speed[2] / wheel_R ) * ( 180/pi )/6.0f;	
  }
  
    //走圆型曲线  机器人坐标  低端走线

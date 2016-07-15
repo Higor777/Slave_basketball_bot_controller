@@ -13,6 +13,7 @@
     <tExt>*.txt; *.h; *.inc</tExt>
     <pExt>*.plm</pExt>
     <CppX>*.cpp</CppX>
+    <nMigrate>0</nMigrate>
   </Extensions>
 
   <DaveTm>
@@ -31,6 +32,7 @@
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>0</RunSim>
         <RunTarget>1</RunTarget>
+        <RunAbUc>0</RunAbUc>
       </OPTTT>
       <OPTHX>
         <HexSelection>1</HexSelection>
@@ -76,16 +78,53 @@
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>255</CpuCode>
-      <DllOpt>
-        <SimDllName>SARMCM3.DLL</SimDllName>
-        <SimDllArguments> -REMAP -MPU</SimDllArguments>
-        <SimDlgDllName>DCM.DLL</SimDlgDllName>
-        <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
-        <TargetDllName>SARMCM3.DLL</TargetDllName>
-        <TargetDllArguments> -MPU</TargetDllArguments>
-        <TargetDlgDllName>TCM.DLL</TargetDlgDllName>
-        <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
-      </DllOpt>
+      <Books>
+        <Book>
+          <Number>0</Number>
+          <Title>User Manual (MCBSTM32F400)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/Keil/MCBSTM32F400/Documentation/mcbstm32f200.chm</Path>
+        </Book>
+        <Book>
+          <Number>1</Number>
+          <Title>Schematics (MCBSTM32F400)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/Keil/MCBSTM32F400/Documentation/mcbstm32f400-schematics.pdf</Path>
+        </Book>
+        <Book>
+          <Number>2</Number>
+          <Title>Getting Started (STM32F4-Discovery)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/ST/STM32F4-Discovery/Documentation/DM00037368.pdf</Path>
+        </Book>
+        <Book>
+          <Number>3</Number>
+          <Title>User Manual (STM32F4-Discovery)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/ST/STM32F4-Discovery/Documentation/DM00039084.pdf</Path>
+        </Book>
+        <Book>
+          <Number>4</Number>
+          <Title>Bill of Materials (STM32F4-Discovery)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/ST/STM32F4-Discovery/Documentation/stm32f4discovery_bom.zip</Path>
+        </Book>
+        <Book>
+          <Number>5</Number>
+          <Title>Gerber Files (STM32F4-Discovery)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/ST/STM32F4-Discovery/Documentation/stm32f4discovery_gerber.zip</Path>
+        </Book>
+        <Book>
+          <Number>6</Number>
+          <Title>Schematics (STM32F4-Discovery)</Title>
+          <Path>F:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\MDK/Boards/ST/STM32F4-Discovery/Documentation/stm32f4discovery_sch.zip</Path>
+        </Book>
+        <Book>
+          <Number>7</Number>
+          <Title>MCBSTM32F400 Evaluation Board Web Page (MCBSTM32F400)</Title>
+          <Path>http://www.keil.com/mcbstm32f400/</Path>
+        </Book>
+        <Book>
+          <Number>8</Number>
+          <Title>STM32F4-Discovery Web Page (STM32F4-Discovery)</Title>
+          <Path>http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/LN1199/PF252419</Path>
+        </Book>
+      </Books>
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
@@ -264,6 +303,12 @@
       </DebugFlag>
       <LintExecutable></LintExecutable>
       <LintConfigFile></LintConfigFile>
+      <DebugDescription>
+        <Enable>1</Enable>
+        <EnableLog>0</EnableLog>
+        <Protocol>2</Protocol>
+        <DbgClock>10000000</DbgClock>
+      </DebugDescription>
     </TargetOption>
   </Target>
 
@@ -279,10 +324,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>48</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>170</TopLine>
-      <CurrentLine>189</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -295,10 +337,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>48</TopLine>
-      <CurrentLine>48</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\stm32f4xx_it.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_it.c</FilenameWithoutPath>
@@ -311,10 +350,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>37</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>364</TopLine>
-      <CurrentLine>379</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\system_stm32f4xx.c</PathWithFileName>
       <FilenameWithoutPath>system_stm32f4xx.c</FilenameWithoutPath>
@@ -335,10 +371,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\CAN\can.c</PathWithFileName>
       <FilenameWithoutPath>can.c</FilenameWithoutPath>
@@ -351,10 +384,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\LED\led.c</PathWithFileName>
       <FilenameWithoutPath>led.c</FilenameWithoutPath>
@@ -367,10 +397,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\BSP\queue.c</PathWithFileName>
       <FilenameWithoutPath>queue.c</FilenameWithoutPath>
@@ -383,10 +410,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>47</TopLine>
-      <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\Chassis\four_motor.c</PathWithFileName>
       <FilenameWithoutPath>four_motor.c</FilenameWithoutPath>
@@ -399,10 +423,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\Chassis\Tracks_GUI.c</PathWithFileName>
       <FilenameWithoutPath>Tracks_GUI.c</FilenameWithoutPath>
@@ -415,10 +436,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\Math\TF.c</PathWithFileName>
       <FilenameWithoutPath>TF.c</FilenameWithoutPath>
@@ -431,10 +449,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>80</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>93</TopLine>
-      <CurrentLine>122</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\BSP\BSP.C</PathWithFileName>
       <FilenameWithoutPath>BSP.C</FilenameWithoutPath>
@@ -447,10 +462,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\BSP\usart3.c</PathWithFileName>
       <FilenameWithoutPath>usart3.c</FilenameWithoutPath>
@@ -463,10 +475,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>16</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\BSP\delay.c</PathWithFileName>
       <FilenameWithoutPath>delay.c</FilenameWithoutPath>
@@ -479,10 +488,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>36</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>102</TopLine>
-      <CurrentLine>118</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\IMU\usart1_IMU.c</PathWithFileName>
       <FilenameWithoutPath>usart1_IMU.c</FilenameWithoutPath>
@@ -495,10 +501,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>98</TopLine>
-      <CurrentLine>114</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\HARDWARE\IMU\can2_IMU.c</PathWithFileName>
       <FilenameWithoutPath>can2_IMU.c</FilenameWithoutPath>
@@ -519,10 +522,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\SYSTEM\sys\sys.c</PathWithFileName>
       <FilenameWithoutPath>sys.c</FilenameWithoutPath>
@@ -543,10 +543,7 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>171</TopLine>
-      <CurrentLine>182</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\CORE\startup_stm32f40_41xxx.s</PathWithFileName>
       <FilenameWithoutPath>startup_stm32f40_41xxx.s</FilenameWithoutPath>
@@ -567,10 +564,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\misc.c</PathWithFileName>
       <FilenameWithoutPath>misc.c</FilenameWithoutPath>
@@ -583,10 +577,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>6</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_gpio.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_gpio.c</FilenameWithoutPath>
@@ -599,10 +590,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_fsmc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_fsmc.c</FilenameWithoutPath>
@@ -615,10 +603,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_rcc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_rcc.c</FilenameWithoutPath>
@@ -631,10 +616,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_syscfg.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_syscfg.c</FilenameWithoutPath>
@@ -647,10 +629,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_usart.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_usart.c</FilenameWithoutPath>
@@ -663,10 +642,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>40</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>758</TopLine>
-      <CurrentLine>774</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_can.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_can.c</FilenameWithoutPath>
@@ -679,10 +655,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FWLIB\src\stm32f4xx_tim.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_tim.c</FilenameWithoutPath>
@@ -703,10 +676,7 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17699476</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\readme.txt</PathWithFileName>
       <FilenameWithoutPath>readme.txt</FilenameWithoutPath>

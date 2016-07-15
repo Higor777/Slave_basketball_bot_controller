@@ -2,7 +2,7 @@
 ..\obj\usart1_imu.o: ..\HARDWARE\BSP\BSP.h
 ..\obj\usart1_imu.o: ..\USER\stm32f4xx.h
 ..\obj\usart1_imu.o: ..\CORE\core_cm4.h
-..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\usart1_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\usart1_imu.o: ..\CORE\core_cmInstr.h
 ..\obj\usart1_imu.o: ..\CORE\core_cmFunc.h
 ..\obj\usart1_imu.o: ..\CORE\core_cm4_simd.h
@@ -35,10 +35,10 @@
 ..\obj\usart1_imu.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\usart1_imu.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\usart1_imu.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
-..\obj\usart1_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+..\obj\usart1_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\usart1_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\usart1_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\usart1_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\usart1_imu.o: ..\SYSTEM\sys\sys.h
 ..\obj\usart1_imu.o: ..\HARDWARE\LED\led.h
 ..\obj\usart1_imu.o: ..\HARDWARE\CAN\can.h

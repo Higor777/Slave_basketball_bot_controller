@@ -3,7 +3,7 @@
 ..\obj\can2_imu.o: ..\SYSTEM\sys\sys.h
 ..\obj\can2_imu.o: ..\USER\stm32f4xx.h
 ..\obj\can2_imu.o: ..\CORE\core_cm4.h
-..\obj\can2_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\can2_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\can2_imu.o: ..\CORE\core_cmInstr.h
 ..\obj\can2_imu.o: ..\CORE\core_cmFunc.h
 ..\obj\can2_imu.o: ..\CORE\core_cm4_simd.h
@@ -38,4 +38,4 @@
 ..\obj\can2_imu.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 ..\obj\can2_imu.o: ..\HARDWARE\LED\led.h
 ..\obj\can2_imu.o: ..\HARDWARE\BSP\delay.h
-..\obj\can2_imu.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+..\obj\can2_imu.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
