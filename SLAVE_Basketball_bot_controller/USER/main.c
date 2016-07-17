@@ -4,28 +4,28 @@
 #include "myextern.h"
 #include "usart3.h"
 #include "four_motor.h"
-/********************************************************************
-ÀºÇòµ×ÅÌÍòÏòÂÖÒÔË³Ê±ÕëĞı×ªÎªÕı·½Ïò
-ÂÖ×ÓĞòºÅÎªÄæÊ±Õë
+/******************************************************************** 
+ç¯®çƒåº•ç›˜ä¸‡å‘è½®ä»¥é¡ºæ—¶é’ˆæ—‹è½¬ä¸ºæ­£æ–¹å‘
+è½®å­åºå·ä¸ºé€†æ—¶é’ˆ
 ********************************************************************/
 
-#define MAX_DATA_LEN 100   //Êı¾İ½ÓÊÕ»º³åÇø´óĞ¡
+#define MAX_DATA_LEN 100   //æ•°æ®æ¥æ”¶ç¼“å†²åŒºå¤§å°
 volatile Queue rx_queue;
-uint8_t radBufferRS485[99]={0};  		 //¼ÇÂ¼×ª½Ç
-int noselect;		  	//ÃüÁîÄ£Ê½Ñ¡Ôñ±ê¼Ç
+uint8_t radBufferRS485[99]={0};  		 //è®°å½•è½¬è§’
+int noselect;		  	//å‘½ä»¤æ¨¡å¼é€‰æ‹©æ ‡è®°
 Robot_data  Ke ;
 System_flag System;
-/***************Êı¾İÏŞÖÆ**************/
+/***************æ•°æ®é™åˆ¶**************/
 float xianfu(float v, float x);
-/***************ÇåÁãÖ¸Áî**************/
+/***************æ¸…é›¶æŒ‡ä»¤**************/
 void clear(void);
-/***************ËÙ¶È¸³Öµ**************/
+/***************é€Ÿåº¦èµ‹å€¼**************/
 void start_dc(void);
-/*******¸³Öµ»úÆ÷ÈË×ø±êÏµËÙ¶È**********/
+/*******èµ‹å€¼æœºå™¨äººåæ ‡ç³»é€Ÿåº¦**********/
 void start_dc_local(void);
-/***************¶¯×÷·ÖÀà**************/
+/***************åŠ¨ä½œåˆ†ç±»**************/
 void handle_data(uint8_t buf[], int len);
-/***************Êı¾İ·µ»Ø**************/
+/***************æ•°æ®è¿”å›**************/
 void send(void);
 
 int main(void)
@@ -36,16 +36,16 @@ int main(void)
 	int cur=0;
 	uint8_t data;
 	uint8_t  buffer[MAX_DATA_LEN] = {0};
-	enum Recstate								   		//×´Ì¬»ú 
+	enum Recstate								   		//çŠ¶æ€æœº 
 	{
 		RECFF1,RECFF2,SENDID,RECID,RECLEN1,RECLEN2,RECSEL,RECCHECK
 	} rs485Recstate = RECFF1;
-	//³õÊ¼»¯
-	System.S_Initialize=0;     //ÏµÍ³×´Ì¬  0  ÏµÍ³Ã»³õÊ¼»¯   |1   ÏµÍ³³õÊ¼»¯³É¹¦
+	//åˆå§‹åŒ–
+	System.S_Initialize=0;     //ç³»ç»ŸçŠ¶æ€  0  ç³»ç»Ÿæ²¡åˆå§‹åŒ–   |1   ç³»ç»Ÿåˆå§‹åŒ–æˆåŠŸ
 	BSP_Init();   
  	NVIC_Configuration();  
 	queue_init(&rx_queue);
-  System.Control_Moder=2;    // ¿ØÖÆÄ£Ê½  2 3 Ê¹ÄÜµç»ú¿ØÖÆ
+  System.Control_Moder=2;    // æ§åˆ¶æ¨¡å¼  2 3 ä½¿èƒ½ç”µæœºæ§åˆ¶
 	System.S_Initialize= 1;
 
 	while(1)
@@ -61,7 +61,7 @@ int main(void)
 				{	
 					rs485Recstate = RECFF2;	
 					checksum=0;		
-					cur = 0;								//Ğ£ÑéÎ»ÇåÁã
+					cur = 0;								//æ ¡éªŒä½æ¸…é›¶
 				}
 	
 				break;
@@ -75,7 +75,7 @@ int main(void)
 	
 	
 			case RECID:				 					
-			  if(data==0x01)	       //Éè±¸±àºÅ0x01µ×ÅÌ
+			  if(data==0x01)	       //è®¾å¤‡ç¼–å·0x01åº•ç›˜
 			    {
 					checksum += data;
 					rs485Recstate = RECLEN1;
@@ -156,24 +156,24 @@ void clear(void)
 	delay_us(300);
 	Can_get_encoder(0x02,0x01);
 	delay_us(300);
-	Gypo_Offset+=Yaw_Angle;//ÍÓÂİÒÇµ÷ÕûÁãÆ«
+	Gypo_Offset+=Yaw_Angle;//é™€èºä»ªè°ƒæ•´é›¶å
 	
 
 } 
 void start_dc(void)	
 {	
 
-		/*********************¸³Öµ»úÆ÷ÈËËÙ¶È*******************/
+		/*********************èµ‹å€¼æœºå™¨äººé€Ÿåº¦*******************/
 		if(noselect==0x01)
 		{
 
-		System.Control_Moder = 2;    //Ìí¼Ócontro_mode,±ÜÃâºÍlocal¿ØÖÆ¸ÉÈÅ
+		System.Control_Moder = 2;    //æ·»åŠ contro_mode,é¿å…å’Œlocalæ§åˆ¶å¹²æ‰°
 
     memcpy(&Ke.E_Global_Speed  , radBufferRS485 , 12);	  //
 
-	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 0.2);  //·ÀÖ¹ËÙ¶È¹ı´ó£¬Í¨ĞÅºÜÄÑËµµÄ¡£
-	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 0.2);
-		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 0.2);
+	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 0.8);  //ä¸Šä½æœºä¸‹å‘é€Ÿåº¦æœ€å¤§ä¸º0.6ï¼Œæ­¤æ—¶è½®å­è½¬é€Ÿä¸º120è½¬/åˆ†é’Ÿ
+	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 0.8);
+		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 0.8);
 		}
 }
 void start_dc_local(void)
@@ -181,12 +181,12 @@ void start_dc_local(void)
 	
 		if(noselect==0x05)   
 		{
-			System.Control_Moder = 3;    //Ìí¼Ócontro_mode,±ÜÃâºÍlocal¿ØÖÆ¸ÉÈÅ
-    memcpy(&Ke.Remote_Speed  , radBufferRS485 , 12);	  //½«Èı¸öµç»úËÙ¶È´æ´¢µ½radBufferRS485
+			System.Control_Moder = 3;    //æ·»åŠ contro_mode,é¿å…å’Œlocalæ§åˆ¶å¹²æ‰°
+    memcpy(&Ke.Remote_Speed  , radBufferRS485 , 12);	  //å°†ä¸‰ä¸ªç”µæœºé€Ÿåº¦å­˜å‚¨åˆ°radBufferRS485
 
-	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 0.2);  //·ÀÖ¹ËÙ¶È¹ı´ó£¬Í¨ĞÅºÜÄÑËµµÄ¡£
-	  Ke.Remote_Speed.y=xianfu(Ke.Remote_Speed.y, 0.2);
-		Ke.Remote_Speed.z=xianfu(Ke.Remote_Speed.z, 0.2);
+	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 0.8);  //é˜²æ­¢é€Ÿåº¦è¿‡å¤§ï¼Œé€šä¿¡å¾ˆéš¾è¯´çš„ã€‚
+	  Ke.Remote_Speed.y=xianfu(Ke.Remote_Speed.y, 0.8);
+		Ke.Remote_Speed.z=xianfu(Ke.Remote_Speed.z, 0.8);
 		}
 }
 void handle_data(uint8_t buf[], int len)
@@ -195,21 +195,21 @@ void handle_data(uint8_t buf[], int len)
 	
 		switch(buf[0])
 		{	
-			case 1: noselect = 0x01 ;break;		   //»úÆ÷ÈËÊÀ½ç×ø±êÏµËÙ¶È	
-			case 2: noselect = 0x02 ;break;		   //¶ÁÈ¡Èı¸öµç»úµÄ½ÇËÙ¶È
-			case 3: noselect = 0x03 ;break;	     //ÖØÖÃ±àÂëÆ÷Êı¾İ		 
-      case 4: noselect = 0x04 ;break;	     //¶ÁÈ¡x,y,w×ø±ê
-      case 5: noselect = 0x05 ;break;      //¿ØÖÆ»úÆ÷ÈË×ø±êÏµËÙ¶È			
+			case 1: noselect = 0x01 ;break;		   //æœºå™¨äººä¸–ç•Œåæ ‡ç³»é€Ÿåº¦	
+			case 2: noselect = 0x02 ;break;		   //è¯»å–ä¸‰ä¸ªç”µæœºçš„è§’é€Ÿåº¦
+			case 3: noselect = 0x03 ;break;	     //é‡ç½®ç¼–ç å™¨æ•°æ®		 
+      case 4: noselect = 0x04 ;break;	     //è¯»å–x,y,wåæ ‡
+      case 5: noselect = 0x05 ;break;      //æ§åˆ¶æœºå™¨äººåæ ‡ç³»é€Ÿåº¦			
 			default:break;
 		}
-		if(noselect == 0x01 )			             //»úÆ÷ÈËÊÀ½ç×ø±êÏµËÙ¶ÈĞÅÏ¢×ªÒÆµ½radBufferRS485[i]
+		if(noselect == 0x01 )			             //æœºå™¨äººä¸–ç•Œåæ ‡ç³»é€Ÿåº¦ä¿¡æ¯è½¬ç§»åˆ°radBufferRS485[i]
 		{						
 			for(i=0;i< 4 * Motor_Num ; i++)												
 			{
 				radBufferRS485[i] = buf[i+1] ;							
 			}			
 		}
-		if(noselect == 0x05 )			             //µç»úËÙ¶ÈĞÅÏ¢×ªÒÆµ½radBufferRS485[i]
+		if(noselect == 0x05 )			             //ç”µæœºé€Ÿåº¦ä¿¡æ¯è½¬ç§»åˆ°radBufferRS485[i]
 		{						
 			for(i=0;i< 4 * Motor_Num ; i++)												
 			{
@@ -222,20 +222,20 @@ void send(void)
 
 	int i;
 	char byte_s[4*Motor_Num],byte_Coord[4*3];	
-  uint16_t checksumsend;				 //Ö®Ç°ÊÇ	 uint16_t   Õâ¸öÓĞÎÊÌâÖ®Ç°ÔõÃ´»áÓÃÕâ¸ö
+  uint16_t checksumsend;				 //ä¹‹å‰æ˜¯	 uint16_t   è¿™ä¸ªæœ‰é—®é¢˜ä¹‹å‰æ€ä¹ˆä¼šç”¨è¿™ä¸ª
 	
 	if(USART_GetFlagStatus(USART3, USART_FLAG_TC)!=RESET)
 	{	
 
-	 if(noselect==0x01) 				 //»úÆ÷ÈËÊÀ½ç×ø±êÏµËÙ¶È			 
+	 if(noselect==0x01) 				 //æœºå™¨äººä¸–ç•Œåæ ‡ç³»é€Ÿåº¦			 
 		{
 			
-			System.Signal_Update = 1 ;    //¿ØÖÆĞÅºÅ¸üĞÂ
+			System.Signal_Update = 1 ;    //æ§åˆ¶ä¿¡å·æ›´æ–°
 			start_dc();										
 			noselect=0;
 	 	}
 
-	 	if(noselect == 0x02)			 // ¶ÁÈ¡½ÇËÙ¶È 
+	 	if(noselect == 0x02)			 // è¯»å–è§’é€Ÿåº¦ 
 		{	
 			USART3_SendChar(0xff);
 			USART3_SendChar(0xff);			
@@ -244,7 +244,7 @@ void send(void)
 			USART3_SendChar(0x0d);											   
 			USART3_SendChar(0x02);
 			
-			checksumsend = 0x10;      //ÒÔÉÏÊı¾İĞ£ÑéÎ»
+			checksumsend = 0x10;      //ä»¥ä¸Šæ•°æ®æ ¡éªŒä½
 			
 		  memcpy( byte_s , &Ke.local_speed , 4*Motor_Num );		   
 			for(i=0 ;i < 4 * Motor_Num ; i++)
@@ -259,31 +259,31 @@ void send(void)
 			noselect=0;			  					
 	 	}
 
-	   if(noselect==0x03)			   //ÖØÖÃ±àÂëÆ÷µÄÊı¾İ
+	   if(noselect==0x03)			   //é‡ç½®ç¼–ç å™¨çš„æ•°æ®
 		{	
 		 
 			clear();		
 			USART3_SendChar(0xff);		
 			USART3_SendChar(0xff);			
-			USART3_SendChar(0x01);     //µ×ÅÌ¿ØÖÆ
-			USART3_SendChar(0x00);		 //Á½Î» ±íÊ¾Êı¾İ³¤¶ÈÎª2
+			USART3_SendChar(0x01);     //åº•ç›˜æ§åˆ¶
+			USART3_SendChar(0x00);		 //ä¸¤ä½ è¡¨ç¤ºæ•°æ®é•¿åº¦ä¸º2
 			USART3_SendChar(0x02);	   
-			USART3_SendChar(0x03);     //±íÊ¾3ºÅ¶¯×÷
-			USART3_SendChar(0x00);		 //±íÊ¾¶¯×÷Ö´ĞĞ³É¹¦	
+			USART3_SendChar(0x03);     //è¡¨ç¤º3å·åŠ¨ä½œ
+			USART3_SendChar(0x00);		 //è¡¨ç¤ºåŠ¨ä½œæ‰§è¡ŒæˆåŠŸ	
 			USART3_SendChar(0x06);
 			noselect=0;
 		}
 
-		if(noselect == 0x04)		   //  ·µ»ØFLOAT µÄX Y W×ø±ê
+		if(noselect == 0x04)		   //  è¿”å›FLOAT çš„X Y Wåæ ‡
 		{
 		
 			USART3_SendChar(0xff);					
 			USART3_SendChar(0xff);
 
-			USART3_SendChar(0x01);		 //µ×ÅÌ¿ØÖÆ							
+			USART3_SendChar(0x01);		 //åº•ç›˜æ§åˆ¶							
 			USART3_SendChar(0x00);				
-			USART3_SendChar(0x0d);		 //Á½Î» ±íÊ¾Êı¾İ³¤¶ÈÎª13
-			USART3_SendChar(0x04);     //±íÊ¾4ºÅ¶¯×÷
+			USART3_SendChar(0x0d);		 //ä¸¤ä½ è¡¨ç¤ºæ•°æ®é•¿åº¦ä¸º13
+			USART3_SendChar(0x04);     //è¡¨ç¤º4å·åŠ¨ä½œ
 
 			checksumsend = 0x12;
 
@@ -301,7 +301,7 @@ void send(void)
 			noselect=0;		  					
 	 	}
 	 	if(noselect == 0x05){
-	 		System.Signal_Update = 1 ;    //¿ØÖÆĞÅºÅ¸üĞÂ
+	 		System.Signal_Update = 1 ;    //æ§åˆ¶ä¿¡å·æ›´æ–°
 			start_dc_local();										
 			noselect=0;
 	 	}

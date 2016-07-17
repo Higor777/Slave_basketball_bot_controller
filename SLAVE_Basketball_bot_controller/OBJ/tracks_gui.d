@@ -2,7 +2,7 @@
 ..\obj\tracks_gui.o: ..\HARDWARE\BSP\BSP.h
 ..\obj\tracks_gui.o: ..\USER\stm32f4xx.h
 ..\obj\tracks_gui.o: ..\CORE\core_cm4.h
-..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\tracks_gui.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\tracks_gui.o: ..\CORE\core_cmInstr.h
 ..\obj\tracks_gui.o: ..\CORE\core_cmFunc.h
 ..\obj\tracks_gui.o: ..\CORE\core_cm4_simd.h
@@ -35,10 +35,10 @@
 ..\obj\tracks_gui.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\tracks_gui.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\tracks_gui.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
-..\obj\tracks_gui.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+..\obj\tracks_gui.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\tracks_gui.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\tracks_gui.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\tracks_gui.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\tracks_gui.o: ..\SYSTEM\sys\sys.h
 ..\obj\tracks_gui.o: ..\HARDWARE\LED\led.h
 ..\obj\tracks_gui.o: ..\HARDWARE\CAN\can.h

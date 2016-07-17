@@ -2,7 +2,7 @@
 ..\obj\main.o: ..\SYSTEM\sys\sys.h
 ..\obj\main.o: ..\USER\stm32f4xx.h
 ..\obj\main.o: ..\CORE\core_cm4.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\main.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\main.o: ..\CORE\core_cmInstr.h
 ..\obj\main.o: ..\CORE\core_cmFunc.h
 ..\obj\main.o: ..\CORE\core_cm4_simd.h
@@ -36,10 +36,10 @@
 ..\obj\main.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\main.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 ..\obj\main.o: ..\HARDWARE\BSP\bsp.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
-..\obj\main.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+..\obj\main.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\main.o: F:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\main.o: F:\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\main.o: F:\MDK5\ARM\ARMCC\Bin\..\include\math.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
 ..\obj\main.o: ..\HARDWARE\CAN\can.h
 ..\obj\main.o: ..\HARDWARE\BSP\queue.h

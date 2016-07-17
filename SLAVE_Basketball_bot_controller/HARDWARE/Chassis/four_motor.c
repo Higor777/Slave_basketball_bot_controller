@@ -96,6 +96,7 @@ void Chassis_control(void)
 解算出x，y，w,给上位机
 **************************************************/
 float Len_M[3]={0,0,0};	   	           //每个万向轮走过里程差值
+float Len_M_error_set[3]={0,0,0};         //轮子里程修正
 float Global_C[3]={0,0,0};	   	       //全局参数保存
 
 		
@@ -145,8 +146,10 @@ void Encoder_analysis(void)
 			Ke.Total_distance .M2 += Len_M[1] ;	
 			delay_us(200) ;
 		 
-		 
-			Motor_To_Global_tf( Len_M , Global_C , (float)Ke.Robot.z ) ; 
+		 	Len_M_error_set[0]=Len_M[0];
+		  Len_M_error_set[1]=Len_M[1]*0.92;
+		  Len_M_error_set[2]=Len_M[2]*0.92;
+			Motor_To_Global_tf( Len_M_error_set , Global_C , (float)Ke.Robot.z ) ; 
 			
 			
 			if(Global_C[0]<0.000001f&&Global_C[0]>-0.000001f)
