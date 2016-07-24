@@ -29,7 +29,7 @@ This is the second version of the basketball bot controller(SLAVE).
 				<li>2，3号轮子打滑很严重，电池放前面会好一点</li>
 				<li>采用串口1接收陀螺仪数据     陀螺仪发送速度最大50hz/s</li>
 				<li>CAN2为家政组陀螺仪接收</li>
-				<li>串口4为 君越陀螺仪 接收，用与卡尔曼滤波</li>
+				<li>串口4为 君越陀螺仪 接收，用于卡尔曼滤波</li>
 			</ul>
     </ul>
 </p>
