@@ -8,14 +8,17 @@
 #include "usart1_IMU.h"
 extern Robot_data  Ke ;
 extern System_flag System;   // 系统各标志
-extern struct SAngle 	stcAngle;
-extern float FITST_angle_erroer;
-extern float Yaw_Angle;
+extern float imu_Angle;
+float  imu_Angle_error=0;
+float  imu_Angle_correct=0;
+extern float Klm_angle;
 //进制转换函数，将10进制转换为16进制，形参N为待转换值，转换完后的值放入指针h对应的数组中
 void itoh(int N, uint8_t *h)   
 {
+	  
     uint8_t a[10]={0};
     int count=0;
+	
     while(N != 0)
     {
        a[count++]=N&0xf;
@@ -27,7 +30,8 @@ void itoh(int N, uint8_t *h)
     *(h+1)=(a[3]<<4)|a[2];
     *(h+2)=(a[5]<<4)|a[4];
     *(h+3)=(a[7]<<4)|a[6];
-}
+		}
+
 /****************底盘控制函数****************/
 void Chassis_control(void)            
 { 	 
@@ -96,17 +100,13 @@ void Chassis_control(void)
 解算出x，y，w,给上位机
 **************************************************/
 float Len_M[3]={0,0,0};	   	           //每个万向轮走过里程差值
-float Len_M_error_set[3]={0,0,0};         //轮子里程修正
+float Len_M_error_set[3]={0,0,0};	
 float Global_C[3]={0,0,0};	   	       //全局参数保存
 
-		
-		
-	extern float Gypo_Offset;
-	extern float Yaw_Angle;
+
 /**************机器人坐标系解算**************/
 void Encoder_analysis(void)
 {
-	static u8 Encoder_cnt = 0;
 	static u8 cnt=0;
 	if(cnt==0)     //主控上电清除驱动板里程数据
 	{
@@ -117,8 +117,9 @@ void Encoder_analysis(void)
 		delay_us(300);
 		Can_get_encoder(0x02,0x01);
 		delay_us(300);
-  	Gypo_Offset+=Yaw_Angle;//陀螺仪调整零偏
-		
+  	clean_imudate();
+		imu_Angle_error=imu_Angle;
+	
 		
   }
 	 else
@@ -146,9 +147,9 @@ void Encoder_analysis(void)
 			Ke.Total_distance .M2 += Len_M[1] ;	
 			delay_us(200) ;
 		 
-		 	Len_M_error_set[0]=Len_M[0];
-		  Len_M_error_set[1]=Len_M[1]*0.92;
-		  Len_M_error_set[2]=Len_M[2]*0.92;
+		  Len_M_error_set[0]=Len_M[0];
+		  Len_M_error_set[1]=Len_M[1]*0.915f;
+		  Len_M_error_set[2]=Len_M[2]*0.915f;
 			Motor_To_Global_tf( Len_M_error_set , Global_C , (float)Ke.Robot.z ) ; 
 			
 			
@@ -167,29 +168,13 @@ void Encoder_analysis(void)
 			
 			Ke.Robot.x -= Global_C[0];
 			Ke.Robot.y -= Global_C[1];
-		  Ke.Robot.z  = Yaw_Angle/180.0f*pi;
+			imu_Angle_correct=-(imu_Angle-imu_Angle_error);  //陀螺仪顺时针角度增加，角度取反
 			
+			Ke.Robot.z=imu_Angle_correct/180.0f*pi;
 			
-			//moto_to_robot
-			Motor_To_Robot_tf(Len_M , Global_C);
-			if(Global_C[0]<0.000001f&&Global_C[0]>-0.000001f)
-			{
-				Global_C[0]=0;
-			}
-			if(Global_C[1]<0.000001f&&Global_C[1]>-0.000001f)
-			{
-				Global_C[1]=0;
-			}		
-			if(Global_C[2]<0.000001f&&Global_C[2]>-0.000001f)
-			{
-				Global_C[2]=0;
-			}	
-			Ke.local_speed.x = Global_C[0];
-			Ke.local_speed.y = Global_C[1];
-			Ke.local_speed.z = Global_C[2];
+
 
    }
-
 }
 
 
@@ -354,6 +339,8 @@ uint8_t Data[8];   // 最大支持8帧数据
 底盘主控ID    0X10 
 
 主控和电机之间的通讯
+
+////////////注意现在F1请求里程一次，三个轮子里程以两个包对形式返回
 
 1.主控发送一个包的请求数据指令DLC=2，DATA[0]=1or2or3请求和回复和控制   DATA[1]=指令类型
   驱动返回2个包的信息

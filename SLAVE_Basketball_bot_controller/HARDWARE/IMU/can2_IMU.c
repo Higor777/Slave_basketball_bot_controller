@@ -112,79 +112,36 @@ float Yaw_Angle = 0.0;
 //中断服务函数	
 void CAN2_RX1_IRQHandler(void)
 {
-	CAN_Receive(CAN2, 1 ,&RxMessage);
-	//LED2=0;
-	if(RxMessage.StdId==0X0401)
-	 {
-		 temp_yaw_angle = (int32_t)(RxMessage.Data[0]<<24)|(int32_t)(RxMessage.Data[1]<<16) 
-            |(int32_t)(RxMessage.Data[2]<<8)|(int32_t)(RxMessage.Data[3]);
-          
-     this_yaw_angle = ((float)temp_yaw_angle*0.01f);
-		 
-		 if(this_yaw_angle>36000||this_yaw_angle<-36000)
+	if (CAN_GetITStatus(CAN2,CAN_IT_FMP1)!= RESET)
+	{
+		CAN_Receive(CAN2, 1 ,&RxMessage);
+		//LED2=0;
+		if(RxMessage.StdId==0X0401)
 		 {
-			 this_yaw_angle =  Yaw_Angle_temp;
-		 }
-					
-		 D_this_yaw_angle=(this_yaw_angle -Yaw_Angle_temp);			
-		 if(D_this_yaw_angle > 500||D_this_yaw_angle<-500)
-		 {
-			 D_this_yaw_angle=D_last_yaw_angle;
-		 }
+			 temp_yaw_angle = (int32_t)(RxMessage.Data[0]<<24)|(int32_t)(RxMessage.Data[1]<<16) 
+							|(int32_t)(RxMessage.Data[2]<<8)|(int32_t)(RxMessage.Data[3]);
 						
-		 D_last_yaw_angle=D_this_yaw_angle;
-		 Yaw_Angle_temp  = Yaw_Angle_temp + D_this_yaw_angle;//将角度值转化为自然数域
-						
-//					last_yaw_angle = this_yaw_angle;
-//						if(Yaw_Angle_temp<2000||Yaw_Angle_temp>-2000)
-//						{
-//							Yaw_Angle_Last=Yaw_Angle_temp;
-//							 memcpy(GYPOS_DATA,&Yaw_Angle_Last,4);
-//		       printf("%f  \n",Yaw_Angle_Last);
-//						}
-//						else 
-//						{
-		 memcpy(GYPOS_DATA,&Yaw_Angle_temp,4);
-		 
-		 Yaw_Angle=Yaw_Angle_temp-Gypo_Offset;
-//		 printf(" this %6f  Yaw%f \r\n", this_yaw_angle, Yaw_Angle_temp);
-//	 }
-						
-	 } 
-	if(RxMessage.Data[1]==0x01&&RxMessage.Data[2]==0xA1)
-	{
-			byte0[0] = RxMessage.Data[4];  // 视CAN_RCE[4]	位低字节
-			byte0[1] = RxMessage.Data[5];
-			byte0[2] = RxMessage.Data[6];
-			byte0[3] = RxMessage.Data[7];
-	}	
-	if(RxMessage.Data[1]==0x02&&RxMessage.Data[2]==0xA1)
-	{
-			byte0[4] = RxMessage.Data[4];  // 视CAN_RCE[4]	位低字节
-			byte0[5] = RxMessage.Data[5];
-			byte0[6] = RxMessage.Data[6];
-			byte0[7] = RxMessage.Data[7];
-	}	
-	if(RxMessage.Data[1]==0x03&&RxMessage.Data[2]==0xA1)
-	{
-			byte0[8] = RxMessage.Data[4];  // 视CAN_RCE[4]	位低字节
-			byte0[9] = RxMessage.Data[5];
-			byte0[10] = RxMessage.Data[6];
-			byte0[11] = RxMessage.Data[7];
-	}	
-	if(RxMessage.Data[0]==0x06&&RxMessage.Data[2]==0x99)
-		Flag1_CAN_Receive=0;
-	else if(RxMessage.Data[0]==0x08&&(RxMessage.Data[2]==0x9B||RxMessage.Data[2]==0x9E||RxMessage.Data[2]==0xA1))
-	{
-		Flag2_CAN_Receive=0;
-		//LED1=0;
-	}
-	else
-	{
-		Flag1_CAN_Receive=0XFF;
-		Flag2_CAN_Receive=0xFF;
-	}
+			 this_yaw_angle = ((float)temp_yaw_angle*0.01f);
+			 
+			 if(this_yaw_angle>36000||this_yaw_angle<-36000)
+			 {
+				 this_yaw_angle =  Yaw_Angle_temp;
+			 }	
+			 D_this_yaw_angle=(this_yaw_angle -Yaw_Angle_temp);			
+			 if(D_this_yaw_angle > 500||D_this_yaw_angle<-500)
+			 {
+				 D_this_yaw_angle=D_last_yaw_angle;
+			 }
+							
+			 D_last_yaw_angle=D_this_yaw_angle;
+			 Yaw_Angle_temp  = Yaw_Angle_temp + D_this_yaw_angle;//将角度值转化为自然数域
+			 Yaw_Angle=Yaw_Angle_temp-Gypo_Offset;				
+		 } 
+	 }
+		 CAN_ClearITPendingBit(CAN2, CAN_IT_FMP1);
+		 CAN_FIFORelease(CAN2,CAN_FIFO1); //清中断标志
 }
+
 #endif
 //can发送一组数据(固定格式:ID为0X12,标准帧,数据帧)	
 //ID :can报文中ID    

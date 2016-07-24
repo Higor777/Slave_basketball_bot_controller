@@ -8,7 +8,12 @@
 
 /*-----USART1_TX-----PA9-----*/
 /*-----USART1_RX-----PA10-----*/
-extern float Yaw_Angle;
+
+
+u8 TF_clean_yaw=0;
+float imu_Angle=0;
+extern Robot_data  Ke ;
+extern float imu_Angle_error;
 void USART1_IMU_Init(uint32_t baud)
 {
 		USART_InitTypeDef usart1;
@@ -39,148 +44,104 @@ void USART1_IMU_Init(uint32_t baud)
 		USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);
 		USART_Cmd(USART1,ENABLE);
 		
-		//使Z轴角度归零
-		delay_ms(10);
-		USART1_SendChar(0xFF);
-		USART1_SendChar(0xAA);
-		USART1_SendChar(0x52);
-//		delay_ms(10);
-//		USART1_SendChar(0xFF);
-//		USART1_SendChar(0xAA);
-//		USART1_SendChar(0x52);
+
+}
+enum imuRecstate								   		//状态机 
+	{
+		RECFF,RECLEN,SENDID,RECSEL,RECCHECK
+	} imu_Recstate = RECFF;
+static uint16_t imu_checksum;
+uint8_t  imu_buffer[30] = {0};
+int imu_cur=0;
+uint8_t datalen1;
+short data_len;
+
+void USART1_IRQHandler(void)     
+{
+	u8 data;
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) 
+		{
+			data =USART_ReceiveData(USART1);
+			switch (imu_Recstate)		
+				{
+				case RECFF :
+					if (data == 0x68)	  
+						{	
+							imu_Recstate =RECLEN;	
+							imu_checksum=0;		
+							imu_cur=0;
+						}
+			  break;
+				case RECLEN :	
+					imu_checksum += data;	
+				  data_len  = data;
+				  imu_Recstate=SENDID;
+			  break;
+				case SENDID :	
+					if (data == 0x00)	  
+						{	
+							imu_Recstate =RECSEL;	
+							imu_checksum+=data;		
+						}	
+					else
+						{
+							imu_Recstate=RECFF;
+							imu_checksum=0;
+						}
+					break;
+					case RECSEL :
+					  imu_checksum += data;
+					  imu_buffer[imu_cur++] = data;
+						if(imu_cur >= data_len-3)
+						{
+							imu_Recstate = RECCHECK;
+						}
+					break;
+					case RECCHECK :	
+						imu_checksum=imu_checksum%256;
+						if(data == imu_checksum)
+							{				
+								get_imudata();	
+								imu_checksum=0;	
+								imu_Recstate = RECFF;	 
+							}
+						else
+						{
+							imu_Recstate = RECFF;
+							imu_checksum=0;
+						}
+						   
+						break;
+					 default:
+							imu_Recstate = RECFF;						
+			}
+				USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+		}
 
 }
 
-
-
-
-
-struct SAcc 		stcAcc;
-struct SGyro 		stcGyro;
-struct SAngle 	stcAngle;
-
-
-unsigned char ucRxBuffer[250];
-//CopeSerialData为串口中断调用函数，串口每收到一个数据，调用一次这个函数。
-void CopeSerialData(unsigned char ucData)
+void get_imudata()
 {
-
-	static unsigned char ucRxCnt = 0;	
-	short temp;
-	ucRxBuffer[ucRxCnt++]=ucData;
-	if (ucRxBuffer[0]!=0x55) //数据头不对，则重新开始寻找0x55数据头
-	{
-		ucRxCnt=0;
-		return;
-	}
-	if (ucRxCnt<11) {return;}//数据不满11个，则返回
-	else
-	{
-		switch(ucRxBuffer[1])
-		{
-			case 0x51:	
-				memcpy(&temp,&ucRxBuffer[2],2);
-				stcAcc.a[0] = (double)temp/32768.0*16.0;
-				memcpy(&temp,&ucRxBuffer[4],2);
-				stcAcc.a[1] = (double)temp/32768.0*16.0;
-				memcpy(&temp,&ucRxBuffer[6],2);
-				stcAcc.a[2] = (double)temp/32768.0*16.0;
-				memcpy(&temp,&ucRxBuffer[8],2);
-				stcAcc.T = (double)temp/340.0+36.25;
-				break;
-			case 0x52:	
-				memcpy(&temp,&ucRxBuffer[2],2);
-				stcGyro.w[0] = (double)temp/32768.0*2000.0;
-				memcpy(&temp,&ucRxBuffer[4],2);
-				stcGyro.w[1] = (double)temp/32768.0*2000.0;
-				memcpy(&temp,&ucRxBuffer[6],2);
-				stcGyro.w[2] = (double)temp/32768.0*2000.0;
-				memcpy(&temp,&ucRxBuffer[8],2);
-				stcGyro.T = (double)temp/340.0+36.25;
-				break;
-			case 0x53:	
-				memcpy(&temp,&ucRxBuffer[2],2);
-				stcAngle.Angle[0] = (double)temp/32768.0*pi;//180.0;
-				memcpy(&temp,&ucRxBuffer[4],2);
-				stcAngle.Angle[1] = (double)temp/32768.0*pi;//180.0;
-				memcpy(&temp,&ucRxBuffer[6],2);
-				stcAngle.Angle[2] = (double)temp/32768.0*pi;//180.0;
-				memcpy(&temp,&ucRxBuffer[8],2);
-				stcAngle.T = (double)temp/340.0+36.25;
-				break;
-			default : break;
-		}
-		ucRxCnt=0;
-	}
+	
+	if(imu_buffer[0]==0x84)
+		imu_Angle=imu_buffer[7]%16*100+imu_buffer[8]/16*10+imu_buffer[8]%16+imu_buffer[9]/16*0.1f+imu_buffer[9]%16*0.01f;
+	if(imu_buffer[0]==0x28) 
+		TF_clean_yaw=1;           //清除飘移指令返回值	
 }
-void Dajiang_CopeSerialData(unsigned char ucData)
-{ 
-	static unsigned char ucRxCnt = 0;	
-	ucRxBuffer[ucRxCnt++]=ucData;
-	if (ucRxBuffer[0]!=0xAA) //数据头不对，则重新开始寻找0x55数据头
+void clean_imudate()         //清除飘移指令，不是清零指令
+{
+		u8 i=0;
+	while(!TF_clean_yaw&&i<0x10)
 	{
-		ucRxCnt=0;
-		return;
+		i++;
+	  USART1_SendChar(0x68);
+		USART1_SendChar(0x04);
+		USART1_SendChar(0x00);
+		USART1_SendChar(0x28);
+		USART1_SendChar(0x2c);
+		delay_us(10);
 	}
-	if (ucRxCnt<6) {return;}//数据不满6个，则返回
-	else
-		{
-			if (ucRxBuffer[1]==0xAB)
-			{
-				memcpy(&Yaw_Angle,&ucRxBuffer[2],4);
-			}
-			
-			ucRxCnt=0;
-		}
-	}
-u8 TxBuffer[256];
-u8 TxCounter=0;
-u8 count=0; 
-
-void USART1_IRQHandler(void)                	//UART1中断服务程序
-{
-//	if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET)  
-//	{
-//						USART_SendData(USART1, TxBuffer[TxCounter++]); 
-//						if(TxCounter == count) 
-//						{
-//							USART_ITConfig(USART1, USART_IT_TXE, DISABLE);// 全部发送完成
-//						}
-//						USART_ClearITPendingBit(USART1, USART_IT_TXE); 
-//					}
-//					else
-					if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
-					{
-						Dajiang_CopeSerialData((unsigned char)USART1->DR);//处理数据
-						USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-					}
-					USART_ClearITPendingBit(USART1,USART_IT_ORE);
-  
-
-} 
-
-
-
-
-
-void USART1_Put_String(char *Str)
-{
-	//判断Str指向的数据是否有效.
-	while(*Str){
-	//是否是回车字符 如果是,则发送相应的回车 0x0d 0x0a
-	if(*Str=='\r'){
-		USART_SendData(USART1, 0X0d);
-		while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束
-		}
-		else if(*Str=='\n'){
-			USART_SendData(USART1, 0X0a);
-			while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束
-			}
-			else {USART_SendData(USART1,*Str);
-				while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束
-				}
-	Str++;
-	}
+	TF_clean_yaw=0;
 }
 
 
@@ -189,4 +150,3 @@ void USART1_SendChar(unsigned char b)
 		while (USART_GetFlagStatus(USART1,USART_FLAG_TC) == RESET);
 		USART_SendData(USART1,b);
 }
-

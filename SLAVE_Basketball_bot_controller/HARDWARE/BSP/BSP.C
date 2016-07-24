@@ -4,9 +4,7 @@
 #include "four_motor.h"
 #include "usart1_IMU.h"
 #include "can2_IMU.h"
-uint32_t    While1_Lasttime=0;    //´æ´¢ÉÏÒ»´Îtim5µÄ¼ÆÊý
-float	NOW_TIME ,IMU_CYCTIME1,IMU_CYCTIME2;	
-extern System_flag System;   // ÏµÍ³¸÷±êÖ¾
+extern System_flag System;   
 
 	GPIO_InitTypeDef  gpio;
 	EXTI_InitTypeDef  exti;
@@ -33,7 +31,7 @@ void TIM6_Configuration(void)
 {
 	
 	tim.TIM_Period = 9999;	  //10MS
-	tim.TIM_Prescaler = 84-1;   // Ê±ÖÓÔ¤·ÖÆµÊý 84M
+	tim.TIM_Prescaler = 84-1;   // 84M/
 	tim.TIM_CounterMode = TIM_CounterMode_Up;
 	tim.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInit(TIM6,&tim);
@@ -43,10 +41,12 @@ void TIM6_Configuration(void)
 
 }
 
-/************Ö÷ÖÐ¶Ï************/
+/************主中断************/
 void TIM6_DAC_IRQHandler(void)   //10ms
 {
 	static u8 cnt=0;
+	//static u8 klm_cnt=1;
+  //u8 i=0;
   if (TIM_GetITStatus(TIM6,TIM_IT_Update)!= RESET) 
 	{    
 			static int16_t led_hz = 1;
@@ -57,20 +57,27 @@ void TIM6_DAC_IRQHandler(void)   //10ms
 				System.S_cnt1=0;
 				LED=!LED;
 			}
-	    
-			IMU_CYCTIME1 = GET_microstime(&While1_Lasttime);		//¸üÐÂÁ½´Î¶ÁÈ¡Ê±¼ä¼ä¸ô ´ó¸Å20ms  2¸öÖÐ¶ÏÊ±¼ä
+	   
+//			if(klm_cnt)
+//			{
+//				for(i=0;i<20;i++)loop();
+//				klm_cnt=0;
+//			}
+//			
+//			 loop();
+//			
+			
 			if(cnt==0)
 			{
-			Chassis_control(); 
-			cnt=1;}   //µ×ÅÌ¿ØÖÆ
+				Chassis_control(); 
+				cnt=1;
+			}   
 			else
 		  {
-			Encoder_analysis();
-			cnt=0;}  //±àÂëÆ÷Êý¾Ý·ÖÎö  ½âËã×ø±ê
+				Encoder_analysis();
+				cnt=0;
+			}  
 		  
-			
-			IMU_CYCTIME2 = GET_microstime(&While1_Lasttime);		//¸üÐÂÁ½´Î¶ÁÈ¡Ê±¼ä¼ä¸ô		
-		
 			TIM_ClearITPendingBit(TIM6,TIM_IT_Update);
 			TIM_ClearFlag(TIM6, TIM_FLAG_Update);
 	}
@@ -83,45 +90,51 @@ void NVIC_Configuration(void)
 {
 	  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  
 	
-  	/*¿ªÆôTIM6Ö÷ÖÐ¶Ï*/  
+  	
 	  nvic.NVIC_IRQChannel = TIM6_DAC_IRQn;
     nvic.NVIC_IRQChannelPreemptionPriority = 2;
-    nvic.NVIC_IRQChannelSubPriority = 0;
+    nvic.NVIC_IRQChannelSubPriority = 1;
     nvic.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&nvic);
 		
-	  /*¿ªÆôUSART3½ÓÊÕÖÐ¶Ï*/  
+	 
 		nvic.NVIC_IRQChannel = USART3_IRQn;
 		nvic.NVIC_IRQChannelPreemptionPriority = 0;
 		nvic.NVIC_IRQChannelSubPriority = 1;
 		nvic.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&nvic);
 	
-		/*¿ªÆôUSART1½ÓÊÕÖÐ¶Ï*/  
+		
 		nvic.NVIC_IRQChannel = USART1_IRQn;
-		nvic.NVIC_IRQChannelSubPriority = 0;
-		nvic.NVIC_IRQChannelSubPriority =3;	   //ÖÐ¶ÏÏìÓ¦ÓÅÏÈ¼¶
+		nvic.NVIC_IRQChannelSubPriority = 1;
+		nvic.NVIC_IRQChannelSubPriority =0;	  
 		nvic.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&nvic);  
+		
+		nvic.NVIC_IRQChannel = UART4_IRQn;
+		nvic.NVIC_IRQChannelSubPriority = 1;
+		nvic.NVIC_IRQChannelSubPriority =0;	  
+		nvic.NVIC_IRQChannelCmd = ENABLE;
+		NVIC_Init(&nvic); 
 	
 }
 
 
 void BSP_Init(void)
 {
-/*************Ê±ÖÓÊ¹ÄÜ********************/
 		RCC_Init();		      
 	
-/************ÏµÍ³Ê±ÖÓ³õÊ¼»¯  ÕâÀïÒÔtim4×÷ÎªÏµÍ³Ê±ÖÓ*******************/
+
 	  Init_System_Timer();      
-/*************Ó²¼þÉèÖÃ³õÊ¼»¯********************/
-    TIM6_Configuration();	   //10ms  TIM6Ö÷ÖÐ¶ÏÉèÖÃ		
-	  LED_Init();					//³õÊ¼»¯LED 
-/*************Í¨ÐÅ³õÊ¼»¯*******************/
-		USART3_Configuration();   //ÉÏÎ»»úÍ¨ÐÅ
+
+    TIM6_Configuration();	   //10ms  主中断
+	  LED_Init();					
+
+	USART3_Configuration();   //上位机通信
     CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_7tq,6,CAN_Mode_Normal);//can1初始化500k波特率
-		CAN2_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,3,CAN_Mode_Normal);//can2初始化500k波特率
-  	//USART1_IMU_Init(115200);
+		//CAN2_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,3,CAN_Mode_Normal);//can2初始化500k波特率
+  	USART1_IMU_Init(115200);//陀螺仪232通信
+	  //USART4_IMU_Init(115200);//磁力计，卡尔曼滤波
 }
 
 
