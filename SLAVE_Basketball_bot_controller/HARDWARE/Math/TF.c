@@ -102,3 +102,9 @@ void Motor_To_Global_tf(float Motor[3] , float *Global ,float R_theta)
 
 }
 
+void Motor_To_Global_tf_zhengjiao(float Motor[2] , float *Global ,float R_theta,float Change_R_theta)
+{
+	*Global       = (Motor[0]+Change_R_theta*wheel_R)*sin(R_theta)+(Motor[1]+Change_R_theta*wheel_R)*cos(R_theta);
+	*(Global + 1) =-(Motor[0]+Change_R_theta*wheel_R)*cos(R_theta)+(Motor[1]+Change_R_theta*wheel_R)*sin(R_theta);
+	
+}

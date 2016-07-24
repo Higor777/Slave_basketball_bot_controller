@@ -46,3 +46,4 @@
 ..\obj\main.o: ..\HARDWARE\BSP\myextern.h
 ..\obj\main.o: ..\HARDWARE\BSP\usart3.h
 ..\obj\main.o: ..\HARDWARE\Chassis\four_motor.h
+..\obj\main.o: ..\HARDWARE\IMU\usart1_IMU.h

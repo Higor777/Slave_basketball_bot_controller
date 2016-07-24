@@ -21,7 +21,7 @@ void Local_Speed_Set(float x , float y , float z)
 void Global_Speed_Set(float x ,float y ,float z)   //设置全局速度
  {
 	  static float Global[3],Speed[3] ;	
-	  Global[0] = -x ;
+	  Global[0] = -x;
 	  Global[1] = -y ;
 	  Global[2] = z;
 		Global_To_Motor_tf( Global , Speed , Ke.Robot.z) ;

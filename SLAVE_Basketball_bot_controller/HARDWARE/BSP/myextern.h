@@ -10,6 +10,14 @@
 #define  radius 0.255f					//到中心的半径距离 	50/sqrt(3)	
 
 
+#define Q_angle 0.0001f           // 磁力计角度数据置信度
+#define Q_omega 0.3f         // 角速度数据置信度, 其数值代表卡尔曼滤波器对其传感器数据的信任程度, 值越小, 表明 信任程度越高。
+
+#define R_angle 0.01f           // 方差噪声
+#define Xoffset -62.0
+#define Yoffset  -168.0
+
+
 typedef struct System{   // 系统各种标志
 	      int8_t Identity ;        //ID 号
 	      int8_t Signal_Update;    //通信更新标志
