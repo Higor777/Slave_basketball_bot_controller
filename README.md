@@ -31,7 +31,7 @@ This is the second version of the basketball bot controller(SLAVE).
 				<li>CAN2为家政组陀螺仪接收</li>
 				<li>串口4为 君越陀螺仪 接收，用于卡尔曼滤波</li>
 			</ul>
-		<li>2017展望：</li>
+		<li>展望：</li>
 			<ul>
 				<li>编码器采集功能可以尝试放在可以F4实现，这样就不用F1了，并且省去CAN通信的过程</li>
 				<li>请认真接好每一根线，所有线都要贴敷在铝材上，所有电源线都不要太长</li>
