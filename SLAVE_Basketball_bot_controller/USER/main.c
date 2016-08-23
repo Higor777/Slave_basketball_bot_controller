@@ -186,7 +186,7 @@ void start_dc_local(void)
 	
 		if(noselect==0x05)   
 		{
-			System.Control_Moder = 3;    //添加contro_mode,避免和local控制干扰
+		System.Control_Moder = 3;    //添加contro_mode,避免和local控制干扰
     memcpy(&Ke.Remote_Speed  , radBufferRS485 , 12);	  //将三个电机速度存储到radBufferRS485
 
 	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 1.1);  //防止速度过大，通信很难说的。
