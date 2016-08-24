@@ -12,6 +12,9 @@ extern float imu_Angle;
 float  imu_Angle_error=0;
 float  imu_Angle_correct=0;
 extern float Klm_angle;
+extern float Yaw_Angle;
+float Yaw_Angle_error=0;
+
 //进制转换函数，将10进制转换为16进制，形参N为待转换值，转换完后的值放入指针h对应的数组中
 void itoh(int N, uint8_t *h)   
 {
@@ -119,7 +122,8 @@ void Encoder_analysis(void)
 		delay_us(300);
   	clean_imudate();
 		imu_Angle_error=imu_Angle;
-	
+		Yaw_Angle_error=Yaw_Angle;
+	   
 		
   }
 	 else
@@ -149,6 +153,7 @@ void Encoder_analysis(void)
 		 
 		  Len_M_error_set[0]=Len_M[0];
 		  Len_M_error_set[1]=Len_M[1]*0.915f;
+			
 		  Len_M_error_set[2]=Len_M[2]*0.915f;
 			Motor_To_Global_tf( Len_M_error_set , Global_C , (float)Ke.Robot.z ) ; 
 			
@@ -170,14 +175,11 @@ void Encoder_analysis(void)
 			Ke.Robot.y -= Global_C[1];
 			imu_Angle_correct=-(imu_Angle-imu_Angle_error);  //陀螺仪顺时针角度增加，角度取反
 			
-			Ke.Robot.z=imu_Angle_correct/180.0f*pi;
+			Ke.Robot.z= (Yaw_Angle-Yaw_Angle_error)/180.f*pi;            //imu_Angle_correct/180.0f*pi;//          ////
 			
-
-
+		
    }
 }
-
-
 
 u8 Can_send_motorx(float v,u8 UID)   //  发送角速度到驱动核
 {

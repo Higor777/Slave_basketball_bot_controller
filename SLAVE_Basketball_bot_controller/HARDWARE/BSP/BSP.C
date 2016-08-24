@@ -130,9 +130,9 @@ void BSP_Init(void)
     TIM6_Configuration();	   //10ms  主中断
 	  LED_Init();					
 
-	USART3_Configuration();   //上位机通信
+	  USART3_Configuration();   //上位机通信
     CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_7tq,6,CAN_Mode_Normal);//can1初始化500k波特率
-		//CAN2_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,3,CAN_Mode_Normal);//can2初始化500k波特率
+		CAN2_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,3,CAN_Mode_Normal);//can2初始化500k波特率
   	USART1_IMU_Init(115200);//陀螺仪232通信
 	  //USART4_IMU_Init(115200);//磁力计，卡尔曼滤波
 }

@@ -18,6 +18,9 @@ Robot_data  Ke ;
 System_flag System;
 extern float imu_Angle_error;
 extern float imu_Angle;
+extern float Yaw_Angle_error;
+extern float Yaw_Angle;
+
 /***************数据限制**************/
 float xianfu(float v, float x);
 /***************清零指令**************/
@@ -159,7 +162,7 @@ void clear(void)
 	delay_us(300);
 	clean_imudate();  //清除飘移指令
 	imu_Angle_error=imu_Angle;//记下当前陀罗角度值
-	
+	Yaw_Angle_error=Yaw_Angle;
 
 } 
 void start_dc(void)	
@@ -173,9 +176,9 @@ void start_dc(void)
 
     memcpy(&Ke.E_Global_Speed  , radBufferRS485 , 12);	  //
 
-	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 0.8);  //防止速度过大，通信很难说的。
-	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 0.8);
-		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 0.8);
+	  Ke.E_Global_Speed.x=xianfu(Ke.E_Global_Speed.x, 1.1);  //防止速度过大，通信很难说的。
+	  Ke.E_Global_Speed.y=xianfu(Ke.E_Global_Speed.y, 1.1);  
+		Ke.E_Global_Speed.z=xianfu(Ke.E_Global_Speed.z, 1.0);
 		}
 }
 void start_dc_local(void)
@@ -183,12 +186,12 @@ void start_dc_local(void)
 	
 		if(noselect==0x05)   
 		{
-			System.Control_Moder = 3;    //添加contro_mode,避免和local控制干扰
+		System.Control_Moder = 3;    //添加contro_mode,避免和local控制干扰
     memcpy(&Ke.Remote_Speed  , radBufferRS485 , 12);	  //将三个电机速度存储到radBufferRS485
 
-	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 0.8);  //防止速度过大，通信很难说的。
-	  Ke.Remote_Speed.y=xianfu(Ke.Remote_Speed.y, 0.8);
-		Ke.Remote_Speed.z=xianfu(Ke.Remote_Speed.z, 0.8);
+	  Ke.Remote_Speed.x=xianfu(Ke.Remote_Speed.x, 1.1);  //防止速度过大，通信很难说的。
+	  Ke.Remote_Speed.y=xianfu(Ke.Remote_Speed.y, 1.1);
+		Ke.Remote_Speed.z=xianfu(Ke.Remote_Speed.z, 1.0);
 		}
 }
 void handle_data(uint8_t buf[], int len)
